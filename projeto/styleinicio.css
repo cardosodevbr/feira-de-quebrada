@@ -1,0 +1,697 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap');
+
+:root {
+    /* Tipografia */
+    --fonte-principal: 'DM Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+
+    /* Paleta de cores */
+    --cor-fundo-creme: #FFF4E4;
+    --cor-card-bege: #FFEDD5;
+    --cor-texto-primario: #312719;
+    --cor-texto-secundario: #312719;
+    --cor-bege-destaque: #FFE4BD;
+    --cor-branco-puro: #f1f1f1;
+
+    --largura-maxima-conteudo: 1200px;
+    --raio-borda-padrao: 16px;
+    --transicao-padrao: 0.25s ease-in-out;
+}
+
+/* Reset global de espaçamento e box model */
+*,
+*::before,
+*::after {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--fonte-principal);
+    font-size: 16px;
+    line-height: 1.5;
+    color: var(--cor-texto-primario);
+    background-color: var(--cor-branco-puro);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Resets específicos de elementos estruturais */
+ul,
+ol {
+    list-style: none;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+}
+
+img {
+    display: block;
+    max-width: 100%;
+    height: auto;
+}
+
+button,
+input {
+    font-family: inherit;
+    font-size: inherit;
+}
+
+/* Indicador de foco visível para navegação via teclado (WCAG 2.4.7).
+   O outline é definido de forma global e sobrescrito com uma cor clara
+   apenas dentro do header quando ele está no estado escuro, garantindo
+   contraste em ambos os fundos. */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible {
+    outline: 3px solid var(--cor-texto-primario);
+    outline-offset: 3px;
+    border-radius: 4px;
+}
+
+/* Suporte à preferência do sistema por movimento reduzido.
+   Usuários que ativam essa opção no sistema operacional costumam ter
+   sensibilidade a animações (enjoo, distração, condições vestibulares).
+   Em vez de reescrever cada transição individualmente, neutralizamos
+   globalmente animações, transições e a rolagem suave — a troca
+   automática do carrossel é tratada à parte, em JavaScript. */
+@media (prefers-reduced-motion: reduce) {
+    html {
+        scroll-behavior: auto;
+    }
+
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+}
+
+/* ==========================================================================
+   CABEÇALHO
+   ========================================================================== */
+header.cabecalho-principal {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    padding: 1rem 2.5rem;
+    background-color: rgba(255, 244, 228, 0.35);
+    backdrop-filter: blur(2px);
+    -webkit-backdrop-filter: blur(2px);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+    transition: background-color var(--transicao-padrao), backdrop-filter var(--transicao-padrao);
+
+    /* Estado escuro, aplicado via JS ao sair da área do hero */
+    &.header-escuro {
+        background-color: rgba(49, 39, 25, 0.85);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+    }
+
+    &.header-escuro nav a {
+        color: var(--cor-branco-puro);
+    }
+
+    &.header-escuro nav a:hover {
+        color: var(--cor-bege-destaque);
+    }
+
+    &.header-escuro .auth-acoes .btn-link:first-child {
+        color: var(--cor-branco-puro);
+    }
+
+    &.header-escuro a:focus-visible,
+    &.header-escuro button:focus-visible,
+    &.header-escuro input:focus-visible {
+        outline-color: var(--cor-branco-puro);
+    }
+
+    /* Logomarca */
+    & .logo img {
+        height: 48px;
+        width: auto;
+        object-fit: contain;
+    }
+
+    /* Menu de navegação */
+    & nav ul {
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    & nav a {
+        font-weight: 500;
+        color: var(--cor-texto-primario);
+        transition: color var(--transicao-padrao);
+    }
+
+    & nav a:hover {
+        color: var(--cor-texto-primario);
+        opacity: 0.7;
+    }
+
+    /* Formulário de busca */
+    & form[role="search"] {
+        display: flex;
+        align-items: center;
+        background-color: rgba(255, 255, 255, 0.85);
+        border-radius: 9999px;
+        padding: 0.5rem 1rem;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+    }
+
+    & form[role="search"] input {
+        border: none;
+        background: transparent;
+        font-size: 0.9rem;
+        width: 220px;
+    }
+
+    & form[role="search"] button {
+        border: none;
+        background: transparent;
+        cursor: pointer;
+        font-size: 0.85rem;
+        font-weight: 700;
+    }
+
+    /* Área de autenticação */
+    & .auth-acoes {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+    }
+
+    & .auth-acoes .btn-link:first-child {
+        color: var(--cor-branco-puro);
+    }
+
+    & .auth-acoes .btn-link:last-child {
+        background-color: var(--cor-branco-puro);
+        padding: 0.5rem 1.25rem;
+        border-radius: 9999px;
+        font-weight: 700;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    }
+
+    /* Em telas médias, a busca cede a primeira linha ao menu e ao acesso,
+       evitando que tudo se comprima numa única linha */
+    @media (max-width: 900px) {
+        & form[role="search"] {
+            order: 3;
+            width: 100%;
+            justify-content: center;
+        }
+
+        & form[role="search"] input {
+            width: 100%;
+            flex: 1;
+        }
+    }
+
+    /* Em telas pequenas, empilha logo / menu / busca / acesso verticalmente */
+    @media (max-width: 640px) {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 1rem 1.25rem;
+
+        & nav ul {
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        & .auth-acoes {
+            justify-content: center;
+        }
+    }
+}
+
+/* ==========================================================================
+   SEÇÃO HERO / CARROSSEL
+   ========================================================================== */
+
+/* Contêiner principal: âncora de posicionamento das camadas do carrossel */
+.hero-carrossel {
+    position: relative;
+    width: 100%;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    padding-top: 120px;
+    overflow: hidden;
+    /* Cor de fallback enquanto as imagens carregam. Usa um tom já existente
+       na paleta (creme de fundo) em vez de uma cor solta, mantendo
+       consistência visual com o restante do site. */
+    background-color: var(--cor-fundo-creme);
+}
+
+@media (max-width: 640px) {
+    .hero-carrossel {
+        padding-top: 160px;
+    }
+}
+
+/* Camada de mídias (background) */
+.carrossel-slides {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+
+.carrossel-slides .slide {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.8s ease-in-out;
+}
+
+.carrossel-slides .slide:first-child,
+.carrossel-slides .slide.ativo {
+    opacity: 1;
+}
+
+.carrossel-slides .slide img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+/* Botão de pausa do carrossel, inserido dinamicamente via JavaScript */
+.carrossel-botao-pausa {
+    position: absolute;
+    z-index: 20;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background-color: rgba(255, 255, 255, 0.85);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border: none;
+    border-radius: 9999px;
+    padding: 0.6rem 1.25rem;
+    font-size: 0.8rem;
+    font-weight: 700;
+    color: var(--cor-texto-primario);
+    cursor: pointer;
+    transition: transform var(--transicao-padrao);
+}
+
+.carrossel-botao-pausa:hover {
+    transform: translateY(-2px);
+}
+
+/* Conteúdo textual em primeiro plano */
+.hero-conteudo {
+    position: relative;
+    z-index: 10;
+    max-width: 580px;
+    margin-left: 5%;
+    padding: 2rem;
+}
+
+.hero-conteudo h1,
+.hero-conteudo p {
+    color: var(--cor-branco-puro);
+    text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6), 0 1px 3px rgba(0, 0, 0, 0.8);
+}
+
+.hero-conteudo p {
+    font-size: 1.125rem;
+    line-height: 1.6;
+    margin-bottom: 2rem;
+}
+
+/* Botões de chamada para ação */
+.hero-botoes {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.hero-botoes .btn-primario,
+.hero-botoes .btn-secundario {
+    display: inline-block;
+    padding: 0.85rem 2rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    text-align: center;
+    transition: transform var(--transicao-padrao), box-shadow var(--transicao-padrao);
+}
+
+.hero-botoes .btn-primario {
+    background-color: var(--cor-branco-puro);
+    color: var(--cor-texto-primario);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.06);
+}
+
+.hero-botoes .btn-secundario {
+    background-color: transparent;
+    color: var(--cor-branco-puro);
+    border: 2px solid var(--cor-branco-puro);
+}
+
+.hero-botoes a:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* ==========================================================================
+   SEÇÃO PROFISSÕES
+   ========================================================================== */
+.secao-profissoes {
+    padding: 5rem 2.5rem;
+    background-color: var(--cor-fundo-creme);
+}
+
+.profissoes-container {
+    max-width: var(--largura-maxima-conteudo);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.profissoes-cabecalho h2 {
+    font-size: 1.85rem;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+}
+
+.profissoes-cabecalho p {
+    font-size: 0.95rem;
+    color: var(--cor-texto-secundario);
+}
+
+.profissoes-galeria {
+    display: flex;
+    gap: 1rem;
+}
+
+.galeria-item {
+    flex: 1;
+    aspect-ratio: 3 / 4;
+    border-radius: var(--raio-borda-padrao);
+    overflow: hidden;
+}
+
+.galeria-item figure {
+    width: 100%;
+    height: 100%;
+}
+
+.galeria-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform var(--transicao-padrao);
+}
+
+.galeria-item:hover img {
+    transform: scale(1.05);
+}
+
+@media (max-width: 900px) {
+    .profissoes-container {
+        grid-template-columns: 1fr;
+    }
+
+    .profissoes-galeria {
+        flex-wrap: wrap;
+    }
+
+    .galeria-item {
+        flex-basis: calc(50% - 0.5rem);
+    }
+}
+
+/* ==========================================================================
+   SEÇÃO CATEGORIAS POPULARES
+   ========================================================================== */
+.secao-categorias {
+    padding: 5rem 2.5rem;
+    background-color: var(--cor-fundo-creme);
+}
+
+.categorias-container {
+    max-width: var(--largura-maxima-conteudo);
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 2.5rem;
+    align-items: start;
+}
+
+.categorias-cabecalho h2 {
+    font-size: 1.85rem;
+    line-height: 1.3;
+    margin-bottom: 1rem;
+}
+
+.categorias-cabecalho p {
+    font-size: 0.95rem;
+    color: var(--cor-texto-secundario);
+}
+
+.categorias-lista {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 1rem;
+}
+
+.categoria-card a {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    background-color: var(--cor-card-bege);
+    padding: 1.75rem 1rem;
+    border-radius: var(--raio-borda-padrao);
+    transition: transform var(--transicao-padrao), box-shadow var(--transicao-padrao);
+}
+
+.categoria-card img {
+    margin-bottom: 0.85rem;
+}
+
+.categoria-card h3 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 0.25rem;
+}
+
+.categoria-card span {
+    font-size: 0.8rem;
+    color: var(--cor-texto-secundario);
+    opacity: 0.65;
+}
+
+.categoria-card a:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.08);
+}
+
+@media (max-width: 900px) {
+    .categorias-container {
+        grid-template-columns: 1fr;
+    }
+
+    .categorias-lista {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ==========================================================================
+   SEÇÃO SOBRE
+   ========================================================================== */
+.secao-sobre {
+    padding: 4rem 2.5rem;
+    background-color: var(--cor-fundo-creme);
+}
+
+.sobre-container {
+    max-width: var(--largura-maxima-conteudo);
+    margin: 0 auto;
+    background-color: var(--cor-card-bege);
+    border-radius: var(--raio-borda-padrao);
+    padding: 2.5rem;
+    display: grid;
+    grid-template-columns: 380px 1fr;
+    gap: 2.5rem;
+    align-items: center;
+}
+
+.sobre-foto img {
+    width: 100%;
+    height: 100%;
+    max-height: 320px;
+    object-fit: cover;
+    border-radius: var(--raio-borda-padrao);
+}
+
+.sobre-texto h2 {
+    font-size: 2rem;
+    margin-bottom: 1.25rem;
+}
+
+.sobre-texto p {
+    font-size: 0.95rem;
+    line-height: 1.65;
+    color: var(--cor-texto-secundario);
+    margin-bottom: 1rem;
+}
+
+.sobre-texto p:last-child {
+    margin-bottom: 0;
+}
+
+@media (max-width: 900px) {
+    .sobre-container {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ==========================================================================
+   SEÇÃO MAPA
+   ========================================================================== */
+.secao-mapa {
+    position: relative;
+    min-height: 480px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: url('bandeirinhas.jpg');
+    background-size: cover;
+    background-position: center;
+    overflow: hidden;
+}
+
+.secao-mapa::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.35);
+}
+
+.mapa-card {
+    position: relative;
+    z-index: 2;
+    max-width: 420px;
+    text-align: center;
+    background-color: rgba(255, 237, 213, 0.92);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+    border-radius: var(--raio-borda-padrao);
+    padding: 2.5rem 2rem;
+}
+
+.mapa-icone {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0.75rem;
+}
+
+.mapa-card h2 {
+    font-size: 1.5rem;
+    margin-bottom: 0.75rem;
+}
+
+.mapa-card p {
+    font-size: 0.9rem;
+    color: var(--cor-texto-secundario);
+    margin-bottom: 1.5rem;
+}
+
+.btn-mapa {
+    display: inline-block;
+    background-color: var(--cor-fundo-creme);
+    padding: 0.75rem 1.75rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    transition: transform var(--transicao-padrao), box-shadow var(--transicao-padrao);
+}
+
+.btn-mapa:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
+}
+
+/* ==========================================================================
+   RODAPÉ
+   ========================================================================== */
+.rodape-principal {
+    background-color: var(--cor-card-bege);
+}
+
+.rodape-container {
+    max-width: var(--largura-maxima-conteudo);
+    margin: 0 auto;
+    padding: 3rem 2.5rem;
+}
+
+.rodape-marca {
+    max-width: 420px;
+}
+
+.rodape-logo-link img {
+    margin-bottom: 1rem;
+}
+
+.rodape-marca p {
+    font-size: 0.9rem;
+    color: var(--cor-texto-secundario);
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+}
+
+.rodape-redes ul {
+    display: flex;
+    gap: 1rem;
+}
+
+.rodape-redes a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 40px;
+    height: 40px;
+    background-color: var(--cor-fundo-creme);
+    border-radius: 50%;
+    transition: transform var(--transicao-padrao);
+}
+
+.rodape-redes a:hover {
+    transform: translateY(-2px);
+}
+
+.rodape-copyright {
+    background-color: var(--cor-bege-destaque);
+    padding: 1.25rem;
+    text-align: center;
+}
+
+.rodape-copyright small {
+    font-size: 0.8rem;
+    color: var(--cor-texto-secundario);
+}

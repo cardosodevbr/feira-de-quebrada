@@ -1,0 +1,282 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Feira de Quebrada | Comércios e serviços locais do seu bairro</title>
+    <meta name="description" content="Descubra comércios, profissionais e serviços locais perto de você na Feira de Quebrada, a plataforma que conecta moradores e pequenos empreendedores do Brasil.">
+
+    <!-- Open Graph / compartilhamento em redes sociais -->
+    <meta property="og:title" content="Feira de Quebrada">
+    <meta property="og:description" content="A plataforma que conecta moradores aos comércios e serviços locais do seu bairro.">
+    <meta property="og:image" content="imagens/capa1.jpeg">
+    <meta property="og:type" content="website">
+
+    <link rel="stylesheet" href="styleinicio.css">
+    <script src="inicio.js" defer></script>
+</head>
+<body>
+
+    <!-- Cabeçalho: logo, navegação primária, busca e acesso do usuário -->
+    <header class="cabecalho-principal">
+        <a href="inicio.html" class="logo">
+            <img src="imagens/logo.png" alt="Logo da Feira de Quebrada">
+        </a>
+
+        <nav aria-label="Navegação principal">
+            <ul>
+                <li><a href="inicio.html">Início</a></li>
+                <li><a href="categoria.html">Categorias</a></li>
+                <li><a href="sobre.html">Sobre</a></li>
+            </ul>
+        </nav>
+
+        <search>
+            <form role="search">
+                <input type="search" placeholder="O que você está procurando?" aria-label="Buscar produtos ou serviços">
+                <button type="submit">Buscar</button>
+            </form>
+        </search>
+
+        <nav class="auth-acoes" aria-label="Acesso à conta">
+            <a href="cadastro.html" class="btn-link">Cadastro</a>
+            <a href="login.html" class="btn-link">Login</a>
+        </nav>
+    </header>
+
+    <main>
+
+        <!-- Seção de destaque: carrossel de banners com chamada para ação -->
+        <!-- Comportamento do carrossel (rotação, controles, ARIA de slide) implementado em inicio.js -->
+        <section class="hero-carrossel">
+
+            <div class="carrossel-slides">
+                <article class="slide">
+                    <img src="imagens/capa1.jpeg" alt="Banner com caixotes coloridos de bebidas" fetchpriority="high">
+                </article>
+                <article class="slide">
+                    <img src="imagens/capa2.jpg" alt="Banner mostrando uma rua com bandeirinhas do Brasil" loading="lazy">
+                </article>
+                <article class="slide">
+                    <img src="imagens/capa3.jpg" alt="Banner mostrando a vista aérea do calçadão da praia de Copacabana" loading="lazy">
+                </article>
+            </div>
+
+            <div class="hero-conteudo">
+                <h1>Aqui o seu comércio voa</h1>
+                <img src="imagens/altocreme.png" alt="Alto" class="titulo-destaque-img">
+
+                <p>
+                    Sonhe alto e faça seu comércio local crescer rapidamente na Feira de Quebrada.
+                    A melhor plataforma de comércio do Brasil.
+                </p>
+
+                <div class="hero-botoes">
+                    <a href="anunciar.html" class="btn-primario">Comece agora</a>
+                    <a href="contato.html" class="btn-secundario">Conheça o projeto</a>
+                </div>
+            </div>
+
+        </section>
+
+        <!-- Seção de profissionais em destaque -->
+        <section class="secao-profissoes" aria-labelledby="titulo-profissoes">
+            <div class="profissoes-container">
+                <header class="profissoes-cabecalho">
+                    <h2 id="titulo-profissoes">
+                        Descubra quem faz acontecer<br>na sua quebrada.
+                    </h2>
+                    <p>
+                        Conheça algumas das profissões mais registradas e procuradas na
+                        <em>Feira de Quebrada</em>.
+                    </p>
+                </header>
+
+                <ul class="profissoes-galeria" role="list">
+                    <li class="galeria-item">
+                        <figure>
+                            <img
+                                src="imagens/trancista.jpg"
+                                alt="Profissional trancista fazendo tranças nagô no cabelo de uma cliente"
+                                loading="lazy">
+                        </figure>
+                    </li>
+                    <li class="galeria-item">
+                        <figure>
+                            <img
+                                src="imagens/costureira.jpg"
+                                alt="Senhora costureira trabalhando em sua máquina de costura manual antiga"
+                                loading="lazy">
+                        </figure>
+                    </li>
+                    <li class="galeria-item">
+                        <figure>
+                            <img
+                                src="imagens/sobrancelha.jpg"
+                                alt="Profissional da estética realizando alinhamento e penteado de sobrancelhas com escova e pinça"
+                                loading="lazy">
+                        </figure>
+                    </li>
+                    <li class="galeria-item">
+                        <figure>
+                            <img
+                                src="imagens/tatuador.jpg"
+                                alt="Tatuador usando luvas descartáveis rosas manchadas de tinta preta aplicando tatuagem na pele"
+                                loading="lazy">
+                        </figure>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Seção de categorias populares -->
+        <section class="secao-categorias" aria-labelledby="titulo-categorias">
+            <div class="categorias-container">
+                <header class="categorias-cabecalho">
+                    <h2 id="titulo-categorias">Categorias Populares</h2>
+                    <p>Navegue pelos estabelecimentos mais buscados da nossa plataforma.</p>
+                </header>
+                <ul class="categorias-lista" role="list">
+
+                    <li class="categoria-card">
+                        <a href="categorias/manicure.html">
+                            <img src="icones/iconemanicure.png" alt="" aria-hidden="true" width="48" height="48">
+                            <h3>Manicure</h3>
+                            <span>Explorar agora</span>
+                        </a>
+                    </li>
+
+                    <li class="categoria-card">
+                        <a href="categorias/beleza.html">
+                            <img src="icones/iconebeleza.png" alt="" aria-hidden="true" width="48" height="48">
+                            <h3>Beleza</h3>
+                            <span>Explorar agora</span>
+                        </a>
+                    </li>
+
+                    <li class="categoria-card">
+                        <a href="categorias/alimentacao.html">
+                            <img src="icones/iconealimentacao.png" alt="" aria-hidden="true" width="48" height="48">
+                            <h3>Alimentação</h3>
+                            <span>Explorar agora</span>
+                        </a>
+                    </li>
+
+                    <li class="categoria-card">
+                        <a href="categorias/costura.html">
+                            <img src="icones/iconecostura.png" alt="" aria-hidden="true" width="48" height="48">
+                            <h3>Costura</h3>
+                            <span>Explorar agora</span>
+                        </a>
+                    </li>
+
+                    <li class="categoria-card">
+                        <a href="categorias/tatuagem.html">
+                            <img src="icones/iconetatuagem.png" alt="" aria-hidden="true" width="48" height="48">
+                            <h3>Tatuagem</h3>
+                            <span>Explorar agora</span>
+                        </a>
+                    </li>
+
+                    <li class="categoria-card">
+                        <a href="categorias/cabelo.html">
+                            <img src="icones/iconecabelo.png" alt="" aria-hidden="true" width="48" height="48">
+                            <h3>Cabelo</h3>
+                            <span>Explorar agora</span>
+                        </a>
+                    </li>
+
+                </ul>
+            </div>
+        </section>
+
+        <!-- Seção institucional: sobre a plataforma -->
+        <section class="secao-sobre" aria-labelledby="titulo-sobre">
+            <div class="sobre-container">
+                <figure class="sobre-foto">
+                    <img src="imagens/beco.jpg" alt="Beco com a bandeira do Brasil">
+                </figure>
+
+                <article class="sobre-texto">
+                    <h2 id="titulo-sobre">Sobre Nós</h2>
+
+                    <p>
+                        A <strong>Feira de Quebrada</strong> nasceu para valorizar quem faz a nossa comunidade acontecer.
+                        Criamos este espaço para dar visibilidade a pequenos empreendedores e aproximar pessoas dos produtos e serviços produzidos dentro de suas próprias comunidades.
+                    </p>
+
+                    <p>
+                        Acreditamos na força da cultura local, da criatividade e do empreendedorismo brasileiro.
+                        Apoiar um negócio local é também valorizar histórias, talentos e sonhos.
+                    </p>
+
+                    <p>
+                        Porque fortalecer o pequeno empreendedor é fortalecer a quebrada.
+                        <em>Aqui, a gente valoriza quem faz.</em>
+                    </p>
+                </article>
+            </div>
+        </section>
+
+        <!-- Seção de mapa interativo (integração futura) -->
+        <section class="secao-mapa" aria-labelledby="titulo-mapa">
+            <div class="mapa-card">
+
+                <span class="mapa-icone" aria-hidden="true">
+                    <img src="icones/iconemapa.png" alt="" width="32" height="32">
+                </span>
+
+                <h2 id="titulo-mapa">Mapa Interativo</h2>
+
+                <p>
+                    A integração com o mapa de estabelecimentos ficará aqui.
+                    Os usuários poderão arrastar, dar zoom e ver os estabelecimentos com seus respectivos pins e rotas.
+                </p>
+
+                <a href="mapa.html" class="btn-mapa">Explorar mapa</a>
+            </div>
+        </section>
+
+    </main>
+
+    <!-- Rodapé: identidade da marca, redes sociais e informações legais -->
+    <footer class="rodape-principal">
+        <div class="rodape-container">
+
+            <div class="rodape-marca">
+                <a href="inicio.html" class="rodape-logo-link">
+                    <img src="logo.png" alt="Feira de Quebrada" width="140" height="auto">
+                </a>
+                <p>
+                    A maior plataforma de conexão entre moradores e comércios locais do Brasil.
+                    Descubra o que há de melhor no seu bairro e voe alto conosco.
+                </p>
+
+                <nav class="rodape-redes" aria-label="Redes sociais e contato externo">
+                    <ul role="list">
+                        <li>
+                            <a href="https://www.instagram.com/feiradaquebrada" target="_blank" rel="noopener noreferrer" aria-label="Acessar nosso perfil no Instagram">
+                                <img src="icones/iconeinstagram.png" alt="" aria-hidden="true" width="24" height="24">
+                            </a>
+                        </li>
+                        <li>
+                            <a href="mailto:feiradaquebrada@gmail.com" aria-label="Nos envie um email">
+                                <img src="icones/iconerede.png" alt="" aria-hidden="true" width="24" height="24">
+                            </a>
+                        </li>
+                    </ul>
+                </nav>
+            </div>
+
+        </div>
+
+        <div class="rodape-copyright">
+            <p>
+                <small>&copy; 2026 Feira de Quebrada. Todos os direitos reservados.</small>
+            </p>
+        </div>
+    </footer>
+
+</body>
+</html>
