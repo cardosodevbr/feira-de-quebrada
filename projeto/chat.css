@@ -1,0 +1,117 @@
+/* ================= CHATBOT ================= */
+.chat-toggle-btn {
+    position: fixed !important;
+    bottom: 20px !important;
+    right: 20px !important;
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 50% !important;
+    background-color: #d8c2a7 !important;
+    color: #111 !important;
+    border: none !important;
+    font-size: 26px !important;
+    cursor: pointer !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4) !important;
+    z-index: 99999 !important; 
+}
+.widget {
+    position: fixed !important;
+    bottom: 90px !important;
+    right: 20px !important;
+    width: 350px !important;
+    height: 480px !important;
+    display: flex !important;
+    flex-direction: column !important;
+    background: #ffffff !important;
+    border-radius: 16px !important;
+    overflow: hidden !important;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4) !important;
+    z-index: 99999 !important; 
+}
+.widget.hidden {
+    display: none !important;
+}
+.chat-toggle-btn:hover {
+    transform: scale(1.08);
+    background-color: #ffc107;
+    color: #000;
+}
+.header {
+    height: 50px;
+    padding: 0 16px;
+    background: #1a1a1a;
+    color: #d8c2a7;
+    font-weight: bold;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.close-btn {
+    background: transparent;
+    border: none;
+    color: #fff;
+    font-size: 22px;
+    cursor: pointer;
+}
+.close-btn:hover {
+    color: #ffc107;
+}
+.chat {
+    flex: 1;
+    padding: 16px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #fdfbf7;
+}
+.bubble {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 13px;
+    line-height: 1.4;
+    word-break: break-word;
+}
+.assistant {
+    align-self: flex-start;
+    background: #e9ecef;
+    color: #333;
+}
+.user {
+    align-self: flex-end;
+    background: #d8c2a7;
+    color: #000;
+    font-weight: 500;
+}
+.composer {
+    height: 60px;
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+}
+.message {
+    flex: 1;
+    height: 38px;
+    padding: 0 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    outline: none;
+    font-family: inherit;
+    font-size: 13px;
+}
+.submit_message {
+    height: 38px;
+    margin-left: 8px;
+    padding: 0 14px;
+    border: none;
+    border-radius: 6px;
+    background: #1a1a1a;
+    color: #d8c2a7;
+    font-weight: bold;
+    cursor: pointer;
+}
+.hidden {
+    display: none !important;
+}

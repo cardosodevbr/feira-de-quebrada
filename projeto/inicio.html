@@ -15,6 +15,16 @@
 
     <link rel="stylesheet" href="styleinicio.css">
     <script src="inicio.js" defer></script>
+
+    <!--Links do chat-->
+    <link rel="stylesheet" href="chat.css">
+    <script src="chat.js"></script>
+
+    <!--Links do mapa-->
+    <script src="mapa.js"></script>
+    <link rel="stylesheet" href="mapa.css">
+    <link rel="stylesheet" href="mapa.html">
+
 </head>
 <body>
 
@@ -239,6 +249,20 @@
         </section>
 
     </main>
+
+<!-- ================= CHATBOT ================= -->
+<button id="chatToggle" class="chat-toggle-btn" aria-label="Abrir Chat">💬</button>
+<div class="widget hidden" id="chatWidget">
+  <div class="header">
+    <span>Chat - Feira da Quebrada</span>
+    <button id="closeChat" class="close-btn">&times;</button>
+  </div>
+  <div class="chat"></div>
+  <div class="composer">
+    <input class="message" type="text" placeholder="Digite sua mensagem...">
+    <button class="submit_message">Enviar</button>
+  </div>
+</div>
 
     <!-- Rodapé: identidade da marca, redes sociais e informações legais -->
     <footer class="rodape-principal">

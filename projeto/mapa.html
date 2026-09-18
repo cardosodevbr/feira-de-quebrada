@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Feira da Quebrada - Mapa Interativo</title>
+
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+  <link rel="stylesheet" href="mapa.css">
+  <script src="mapa.js" defer></script>
+</head>
+<body>
+
+  <section id="mapContainer" class="map-card-container">
+    <div class="map-card-header">
+      <div class="header-title">
+        <a href="inicio.html" class="btn-voltar">← Voltar</a>
+        <h3>📍 Empreendedores na Região</h3>
+      </div>
+      <span class="badge-tag">Comunidade Local</span>
+    </div>
+
+    <div class="map-wrapper">
+      <aside class="sidebar-empreendedores">
+        <div class="sidebar-header">
+          <h4>Lista de Empreendedores</h4>
+          <small>Clique para centralizar no mapa</small>
+        </div>
+        <div id="listaEmpreendedores" class="lista-cards"></div>
+      </aside>
+
+      <div id="mapa" class="map-element"></div>
+    </div>
+
+    <div class="map-card-footer">
+      <small>💡 Clique em um card lateral ou nos círculos no mapa para negociar direto pelo WhatsApp.</small>
+    </div>
+  </section>
+
+</body>
+</html>
