@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="filtro.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <main class="pagina-resultados">
+
+    <aside class="filtros">
+
+        <h2 class="busca">Busca Avançada</h2>
+
+        <label for="busca">O que você procura?</label>
+        <input type="text" id="busca" placeholder="Nome ou palavra-chave">
+        
+
+        <label for="categoria">Categoria</label>
+        <select id="categoria">
+            <option value="todas">Todas</option>
+            <option value="manicure">Manicure</option>
+            <option value="beleza">Beleza</option>
+            <option value="alimentacao">Alimentação</option>
+            <option value="costura">Costura</option>
+            <option value="tatuagem">Tatuagem</option>
+            <option value="cabelo">Cabelo</option>
+        </select>
+
+        <label for="localizacao">Localização (Bairro)</label>
+        <input type="text"id="localizacao"placeholder="Ex: Centro, Itaim...">
+        
+
+        <button type="button" class="aplica-filtro">Aplicar Filtros</button>
+
+
+    </aside>
+
+    <section class="resultados">
+
+        <div class="topo-resultados">
+
+            <p>Mostrando <strong id="resultado"></strong> resultados encontrados</p>
+
+            <div class="ordenacao">
+                <label for="ordenar">Ordenar por:</label>
+
+                <select id="ordenar">
+                    <option>Mais recentes</option>
+                    <option>Mais antigos</option>
+                </select>
+            </div>
+
+        </div>
+
+        <div class="card-container">
+            <div class="card-resultados"  data-categoria="tatuagem">
+                <img src="logo.kelly.jpeg">
+                <span class="top-categorias">Tatuagem</span>
+                <span class="top-favoritos">☆ Destaque</span>
+
+            
+
+                <div class="conteudo-card">
+                <div class="localizacao">
+                    <img src="marcador.png" style="width: 20px; height: 20px; margin-right: 5px;">
+                    <span class="bairro">Vila da Saude</span>
+                </div>
+
+                <div class="informacoes">
+                    <h3>Kezzy Souza</h3>
+                    <p>Projeto uníco para a mulher que sabe quem é, e se permite ser</p>
+                </div>
+
+                <button type="button" class="ver-detalhes">Ver detalhes</button>
+
+            </div>
+
+            <div class="card-resultados" data-categoria="tatuagem">
+                <img src="tatuadora.jpg">
+                <span class="top-categorias">Tatuagem</span>
+                <span class="top-favoritos">☆ Destaque</span>
+
+            
+
+                <div class="conteudo-card">
+                    <div class="localizacao">
+                        <img src="marcador.png">
+                        <span class="bairro">Exemplo</span>
+                    </div>
+
+                    <div class="informacoes">
+                        <h3>Exemplo</h3>
+                        <p>Exemplo</p>
+                    </div>
+
+                    <button type="button" class="ver-detalhes">Ver detalhes</button>
+                </div>
+            </div>
+
+            
+            
+        </div>
+
+    </section>
+
+</main>
+
+<script src="filtro.js"></script>
+</body>
+</html>
+
