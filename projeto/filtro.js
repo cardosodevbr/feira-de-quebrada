@@ -52,7 +52,7 @@ botaoFiltro.addEventListener("click", function() {
     card.style.display = "none";
     }
     });
-    resultado.textContent = quantidadeResultados; // ← COLOCA AQUI
+    resultado.textContent = quantidadeResultados; 
 
 });
 
