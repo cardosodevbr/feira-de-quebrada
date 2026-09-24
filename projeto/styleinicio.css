@@ -210,6 +210,100 @@ header.cabecalho-principal {
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
     }
 
+    /* ==========================================================================
+   MENU DROPDOWN (BALÃOZINHO DE CATEGORIAS)
+   ========================================================================== */
+
+/* Contêiner principal do dropdown */
+.menu-dropdown {
+    position: relative; /* Define que o balãozinho flutuante ficará posicionado em relação a este item */
+}
+
+/* O corpo do balãozinho */
+.dropdown-balao {
+    position: absolute;
+    top: 150%; 
+    left: 0;
+    background-color: var(--cor-branco-puro);
+    min-width: 220px; 
+    border-radius: var(--raio-borda-padrao);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); 
+    padding: 0.5rem 0;
+    display: flex;
+    flex-direction: column;
+    z-index: 200; 
+    transition: opacity var(--transicao-padrao), transform var(--transicao-padrao);
+    
+    /* ======== NOVAS REGRAS PARA A ROLAGEM ======== */
+    /* Cada item tem cerca de 42px de altura. 
+       220px é suficiente para mostrar as 5 primeiras opções 
+       e um "pedacinho" da 6ª, dando a dica visual de que dá para rolar! */
+    max-height: 220px; 
+    
+    /* Se o conteúdo passar de 220px, cria uma barra de rolagem vertical */
+    overflow-y: auto; 
+}
+
+/* ==========================================================================
+   ESTILIZAÇÃO DA BARRA DE ROLAGEM DO BALÃOZINHO (Design Moderno)
+   ========================================================================== */
+/* Largura da barra de rolagem */
+.dropdown-balao::-webkit-scrollbar {
+    width: 6px; 
+}
+
+/* O fundo (trilho) da barra de rolagem */
+.dropdown-balao::-webkit-scrollbar-track {
+    background: var(--cor-branco-puro); 
+    border-radius: var(--raio-borda-padrao);
+}
+
+/* A parte que o utilizador clica e arrasta (o polegar) */
+.dropdown-balao::-webkit-scrollbar-thumb {
+    background: #cccccc; /* Uma cor cinza neutra */
+    border-radius: var(--raio-borda-padrao);
+}
+
+/* Quando o utilizador passa o rato em cima da barra de rolagem */
+.dropdown-balao::-webkit-scrollbar-thumb:hover {
+    background: #aaaaaa; /* Fica um pouco mais escura */
+}
+
+/* Classe utilizada pelo JavaScript para esconder o menu */
+.dropdown-balao.escondido {
+    display: none !important;
+    opacity: 0;
+    transform: translateY(-10px); /* Efeito suave de subida ao fechar */
+}
+
+/* Classe utilizada pelo JavaScript para mostrar o menu */
+.dropdown-balao.mostrar {
+    display: flex !important;
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Estilo de cada item/link dentro do balãozinho */
+.dropdown-balao li {
+    width: 100%;
+}
+
+.dropdown-balao a {
+    display: block;
+    padding: 0.75rem 1.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    
+    /* Forçamos a cor escura e removemos as regras de hover antigas para os itens internos do balão */
+    color: var(--cor-texto-primario) !important; 
+}
+
+/* Efeito ao passar o rato (hover) apenas nos itens internos do balãozinho */
+.dropdown-balao a:hover {
+    background-color: var(--cor-card-bege);
+    opacity: 1 !important;
+}
+
     /* Em telas médias, a busca cede a primeira linha ao menu e ao acesso,
        evitando que tudo se comprima numa única linha */
     @media (max-width: 900px) {

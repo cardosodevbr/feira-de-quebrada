@@ -133,3 +133,45 @@
         atualizarHeader();
     });
 })();
+
+// ============================================================================
+// Funcionalidade do Menu Dropdown (Balãozinho de Categorias)
+// ============================================================================
+(function () {
+    // 1. Identificamos os elementos na página HTML
+    const btnCategorias = document.getElementById('btn-categorias');
+    const listaCategorias = document.getElementById('lista-categorias');
+
+    // Se a página não tiver este menu, paramos o código por aqui para evitar erros
+    if (!btnCategorias || !listaCategorias) return;
+
+    // 2. Ação de clicar no botão "Categorias"
+    btnCategorias.addEventListener('click', function(evento) {
+        // Impede que o ecrã salte para o topo da página (comportamento padrão dos links com "#")
+        evento.preventDefault(); 
+        
+        // Verifica se o balãozinho está escondido
+        if (listaCategorias.classList.contains('escondido')) {
+            // Se estiver escondido, mostra-o!
+            listaCategorias.classList.remove('escondido');
+            listaCategorias.classList.add('mostrar');
+            btnCategorias.setAttribute('aria-expanded', 'true'); // Acessibilidade para leitores de ecrã
+        } else {
+            // Se já estiver aberto, esconde-o!
+            listaCategorias.classList.add('escondido');
+            listaCategorias.classList.remove('mostrar');
+            btnCategorias.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    // 3. Ação para fechar o balãozinho quando o utilizador clica fora dele
+    document.addEventListener('click', function(evento) {
+        // Verifica se o clique ocorreu FORA do botão 'Categorias' e FORA do balãozinho
+        if (!btnCategorias.contains(evento.target) && !listaCategorias.contains(evento.target)) {
+            // Se o utilizador clicou fora, escondemos o balãozinho por segurança
+            listaCategorias.classList.add('escondido');
+            listaCategorias.classList.remove('mostrar');
+            btnCategorias.setAttribute('aria-expanded', 'false');
+        }
+    });
+})();

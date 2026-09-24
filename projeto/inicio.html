@@ -37,11 +37,32 @@
         <nav aria-label="Navegação principal">
             <ul>
                 <li><a href="inicio.html">Início</a></li>
-                <li><a href="categoria.html">Categorias</a></li>
+                
+                <!-- INÍCIO: Menu Dropdown (Balãozinho) de Categorias -->
+                <li class="menu-dropdown">
+                    <!-- O id="btn-categorias" vai servir para o JavaScript detetar o clique -->
+                    <a href="#" id="btn-categorias" aria-expanded="false" aria-controls="lista-categorias">Categorias ▾</a>
+                    
+                    <!-- Esta é a lista do balãozinho, que começa com a classe 'escondido' -->
+                    <!-- Esta é a lista do balãozinho, agora em ordem alfabética -->
+                    <ul id="lista-categorias" class="dropdown-balao escondido">
+                        <li><a href="filtro.html?categoria=alimentacao">Alimentação</a></li>
+                        <li><a href="filtro.html?categoria=assistencia">Assistência Técnica</a></li>
+                        <li><a href="filtro.html?categoria=beleza">Beleza</a></li>
+                        <li><a href="filtro.html?categoria=cabelo">Cabelo</a></li>
+                        <li><a href="filtro.html?categoria=costura">Costura</a></li>
+                        <li><a href="filtro.html?categoria=festas">Festas e Eventos</a></li>
+                        <li><a href="filtro.html?categoria=fretes">Fretes e Entregas</a></li>
+                        <li><a href="filtro.html?categoria=manicure">Manicure</a></li>
+                        <li><a href="filtro.html?categoria=obras">Obras e Reformas</a></li>
+                        <li><a href="filtro.html?categoria=tatuagem">Tatuagem</a></li>
+                    </ul>
+                </li>
+                <!-- FIM: Menu Dropdown -->
+
                 <li><a href="sobre.html">Sobre</a></li>
             </ul>
         </nav>
-
         <search>
             <form role="search">
                 <input type="search" placeholder="O que você está procurando?" aria-label="Buscar produtos ou serviços">
