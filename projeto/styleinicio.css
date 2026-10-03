@@ -675,7 +675,7 @@ header.cabecalho-principal {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url('bandeirinhas.jpg');
+    background-image: url('imagens/bandeirinhas.jpg');
     background-size: cover;
     background-position: center;
     overflow: hidden;
@@ -788,4 +788,61 @@ header.cabecalho-principal {
 .rodape-copyright small {
     font-size: 0.8rem;
     color: var(--cor-texto-secundario);
+}
+.container-dados {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 40px 30px;
+    background-color: #FFF3E4; /* Fundo bege suave do container */
+    border-radius: 12px;
+}
+
+.dados {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.contas {
+    flex: 1;
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+/* Círculo de fundo ao redor do ícone */
+.icone-bg {
+    width: 65px;
+    height: 65px;
+    background-color: #FFEDD5; /* Bege um pouco mais escuro para o círculo */
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+/* Ícone menor centralizado */
+.contas img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.contas h3 {
+    margin: 0 0 4px 0;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #2B2B2B;
+}
+
+.contas p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555555;
+    font-weight: 400;
 }
