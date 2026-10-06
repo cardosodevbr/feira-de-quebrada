@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="cadastro.css">
+    <title>Cadastro Cliente </title>
+</head>
+<body>
+    <div class="container">
+        <div class="image-container">
+            <img id="imagem-cadastro" src="trancista.png" alt="Imagem de cadastro">
+        </div>
+
+        <div class="form-wrapper">
+            <div class="card">
+                <div class="logo">
+                    <img src="Feira da Quebrada - Logos (2) 3.png">
+                </div>
+                <div class="subtitulo">Cadastre sua conta</div>
+
+                <div class="usuario">
+                    <button type="button" class="btn-perfil ativo" id="btn-cliente">
+                        Cliente
+                    </button>
+
+                    <button type="button" class="btn-perfil" id="btn-empreendedor">
+                        Empreendedor
+                    </button>
+                </div>
+
+                <form class="form-cliente">
+                    <div class="input-group">
+                        <label for="name">Nome Completo:</label>
+                        <div class="input-box">
+                            <img src="do-utilizador 1.png">
+                            <input type="text" id="name" placeholder="Seu nome" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email">E-mail:</label>
+                        <div class="input-box">
+                            <img src="e-mail 1.png">
+                            <input type="email" id="email" placeholder="Seu @email.com" required>
+                        </div>
+                    </div>
+
+                   
+
+
+                    <div class="input-group">
+                        <label for="password">Senha:</label>
+                        <div class="input-box">
+                            <img src="trancar 5.png">
+                            <input type="password" id="password" placeholder="Mínimo 8 caracteres" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="palavra-seguranca">Palavra de Segurança:</label>
+
+                        <div class="input-box">
+                            <img src="trancar 5.png">
+                            <input type="password" id="palavra-seguranca" placeholder="Mínimo 8 caracteres" required>
+                        </div>
+
+                        <small>*Esta palavra será usada para recuperar sua senha. Guarde-a bem.</small>
+                    </div>
+                    <hr>
+
+                    <button type="submit" class="btn-submit"> Criar conta</button>
+                    <p class="login-link">Já possui uma conta? <a href="#">Faça login</a></p>
+    
+                </form>
+
+                <form class="form-empreendedor">
+                    
+                     <div class="input-group">
+                        <label for="name">Nome do Titular:</label>
+                        <div class="input-box">
+                            <img src="do-utilizador 1.png">
+                            <input type="text" id="name" placeholder="Seu nome" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="email">E-mail:</label>
+                        <div class="input-box">
+                            <img src="e-mail 1.png">
+                            <input type="email" id="email" placeholder="Seu @email.com" required>
+                        </div>
+                    </div>
+
+                   
+
+
+                    <div class="input-group">
+                        <label for="password">Senha:</label>
+                        <div class="input-box">
+                            <img src="trancar 5.png">
+                            <input type="password" id="password" placeholder="Mínimo 8 caracteres" required>
+                        </div>
+                    </div>
+
+                    <div class="input-group">
+                        <label for="palavra-seguranca">Palavra de Segurança:</label>
+
+                        <div class="input-box">
+                            <img src="trancar 5.png">
+                            <input type="password" id="palavra-seguranca" placeholder="Mínimo 8 caracteres" required>
+                        </div>
+
+                        <small>*Esta palavra será usada para recuperar sua senha. Guarde-a bem.</small>
+                    </div>
+                    <hr>
+
+                    <button type="submit" class="btn-submit"> Criar conta</button>
+                    <p class="login-link">Já possui uma conta? <a href="#">Faça login</a></p>
+    
+
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="cadastro.js"></script>
+</body>
+</html>
