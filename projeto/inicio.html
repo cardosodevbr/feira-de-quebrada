@@ -13,6 +13,10 @@
     <meta property="og:image" content="imagens/capa1.jpeg">
     <meta property="og:type" content="website">
 
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:opsz,wght@9..40,100..1000&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="styleinicio.css">
     <script src="inicio.js" defer></script>
 
@@ -84,7 +88,7 @@
 
             <div class="carrossel-slides">
                 <article class="slide">
-                    <img src="imagens/capa1.jpeg" alt="Banner com caixotes coloridos de bebidas" fetchpriority="high">
+                    <img src="imagens/rua.jpg" alt="Banner com caixotes coloridos de bebidas" fetchpriority="high">
                 </article>
                 <article class="slide">
                     <img src="imagens/capa2.jpg" alt="Banner mostrando uma rua com bandeirinhas do Brasil" loading="lazy">
@@ -249,7 +253,43 @@
                 </article>
             </div>
         </section>
+<div class="container-dados">
+    <section class="dados">
 
+        <div class="contas">
+            <div class="icone-bg">
+                <img src="imagens/pessoas.png" alt="Contas">
+            </div>
+            <h3>+4 mil</h3>
+            <p>Contas alcançadas</p>
+        </div>
+
+        <div class="contas">
+            <div class="icone-bg">
+                <img src="imagens/comprar.png" alt="Comércios">
+            </div>
+            <h3>+500</h3>
+            <p>Comércios cadastrados</p>
+        </div>
+
+        <div class="contas">
+            <div class="icone-bg">
+                <img src="imagens/lupa.png" alt="Lupa">
+            </div>
+            <h3>+2 mil</h3>
+            <p>Negócios descobertos</p>
+        </div>
+
+        <div class="contas">
+            <div class="icone-bg">
+                <img src="imagens/honestidade.png" alt="Conexões">
+            </div>
+            <h3>+1 mil</h3>
+            <p>Conexões realizadas</p>
+        </div>
+
+    </section>
+</div>
         <!-- Seção de mapa interativo (integração futura) -->
         <section class="secao-mapa" aria-labelledby="titulo-mapa">
             <div class="mapa-card">
@@ -272,17 +312,48 @@
     </main>
 
 <!-- ================= CHATBOT ================= -->
-<button id="chatToggle" class="chat-toggle-btn" aria-label="Abrir Chat">💬</button>
-<div class="widget hidden" id="chatWidget">
-  <div class="header">
-    <span>Chat - Feira da Quebrada</span>
-    <button id="closeChat" class="close-btn">&times;</button>
+<div class="chat-wrapper" id="chatWrapper">
+  
+  <div class="widget hidden" id="chatWidget">
+    <div class="header">
+      <div class="persona-info">
+        <div class="avatar-header">
+          <img src="imagens/fey.png" alt="Jessica Avatar">
+          <span class="online-dot"></span>
+        </div>
+        <div class="persona-details">
+          <span class="persona-nome">Fey</span>
+          <span class="persona-status">Atendimento • </span>
+        </div>
+      </div>
+      <button id="closeChat" class="close-btn" aria-label="Fechar Chat">&times;</button>
+    </div>
+
+    <div class="chat" id="chatBox"></div>
+
+    <div class="composer">
+      <input class="message" type="text" placeholder="Digite uma mensagem..." id="chatInput">
+      <button class="submit_message" id="submitBtn" aria-label="Enviar">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="22" y1="2" x2="11" y2="13"></line>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"></polygon>
+        </svg>
+      </button>
+    </div>
   </div>
-  <div class="chat"></div>
-  <div class="composer">
-    <input class="message" type="text" placeholder="Digite sua mensagem...">
-    <button class="submit_message">Enviar</button>
+
+<button id="chatToggle" class="chat-toggle-btn" aria-label="Abrir Chat">
+  
+  <div class="chat-help-tooltip" id="chatHelpTooltip">
+    <span>Precisa de ajuda? 💬</span>
   </div>
+
+  <div class="avatar-toggle">
+    <img src="imagens/fey.png" alt="Jessica">
+    <span class="status-indicator"></span>
+  </div>
+</button>
+
 </div>
 
     <!-- Rodapé: identidade da marca, redes sociais e informações legais -->

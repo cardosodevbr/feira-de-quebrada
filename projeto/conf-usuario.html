@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Área do Cliente</title>
+  <link rel="stylesheet" href="conf-usuario.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+  <div class="dashboard-container">
+    <aside class="sidebar">
+      <div class="brand">
+        <i class="fa-solid fa-paper-plane brand-icon"></i>
+        <h2>Área do Cliente</h2>
+      </div>
+      
+      <hr class="divider">
+
+      <nav class="sidebar-nav">
+        <button class="nav-btn active">
+          <i class="fa-solid fa-gear"></i>
+          Configurações
+        </button>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      
+      <header class="welcome-card">
+        <div class="welcome-text">
+          <p>Bem vindo(a) de volta,</p>
+          <h1 id="nomeSaudacao">Carregando...</h1>
+        </div>
+        <button class="btn-voltar" id="btnVoltarSite" onclick="window.location.href='inicio.html'">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          Voltar para o site
+        </button>
+      </header>
+
+      <section class="profile-card">
+        <h2>Meus Dados</h2>
+        <p class="subtitle">Mantenha seu perfil sempre atualizado.</p>
+        
+        <hr class="divider-card">
+
+        <form id="formPerfil" class="profile-form">
+          <div class="form-row">
+            <div class="form-group">
+              <label for="nomeCompleto">Nome Completo</label>
+              <input type="text" id="nomeCompleto" placeholder="Seu nome completo" required>
+            </div>
+
+            <div class="form-group">
+              <label for="telefoneContato">Telefone de Contato</label>
+              <input type="tel" id="telefoneContato" placeholder="(00) 00000-0000">
+            </div>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="emailContato">Email</label>
+            <input type="email" id="emailContato" placeholder="seuemail@exemplo.com" disabled>
+          </div>
+
+          <button type="submit" class="btn-atualizar" id="btnSalvar">
+            Atualizar Dados do Perfil
+          </button>
+        </form>
+      </section>
+
+    </main>
+  </div>
+
+  <script type="module" src="conf-usuario.js"></script>
+</body>
+</html>

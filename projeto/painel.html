@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Painel Lojista - Feira da Quebrada</title>
+  <link rel="stylesheet" href="painel.css">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <div class="painel-container">
+    <aside class="sidebar">
+      <div class="logo">
+        <h2>Painel Lojista</h2>
+      </div>
+      <nav class="menu">
+        <button class="menu-btn active" data-aba="dashboard">📊 Dashboard</button>
+        <button class="menu-btn" data-aba="negocio">🏪 Meu Negócio</button>
+        <button class="menu-btn" data-aba="vitrine">👁️ Minha Vitrine</button>
+        <button class="menu-btn" data-aba="perfil">👤 Meu Perfil</button>
+      </nav>
+    </aside>
+
+    <main class="main-content">
+      <header class="top-bar">
+        <div class="user-welcome">
+          <span>Olá, bem-vindo(a)</span>
+          <h3 id="nomeLojista">Ateliê da Quebrada</h3>
+        </div>
+        <div style="display: flex; gap: 10px;">
+          <button class="btn-sair" onclick="window.location.href='inicio.html'">Voltar ao Site</button>
+          <button class="btn-sair btn-logout" id="btnSairConta">🚪 Sair da Conta</button>
+        </div>
+      </header>
+      <section id="aba-dashboard" class="aba-conteudo active">
+        <div class="cards-grid">
+          <div class="card-stat">
+            <span class="stat-icon">👁️</span>
+            <div>
+              <h4>Visualizações</h4>
+              <p id="statViews">0</p>
+            </div>
+          </div>
+          <div class="card-stat">
+            <span class="stat-icon">💬</span>
+            <div>
+              <h4>Cliques no WhatsApp</h4>
+              <p id="statClicks">0</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="card-box">
+          <h3>Gerenciar Fotos do Comércio</h3>
+          <p class="sub-titulo">Mantenha a galeria e a imagem do seu estabelecimento atualizadas.</p>
+          <button class="btn-primary" id="btnIrGaleria">Gerenciar Fotos</button>
+        </div>
+      </section>
+
+      <section id="aba-negocio" class="aba-conteudo">
+        <div class="sub-nav">
+          <button class="sub-btn active" data-sub="dados">Dados do Comércio</button>
+          <button class="sub-btn" data-sub="galeria">Galeria & Logo</button>
+          <button class="sub-btn" data-sub="horarios">Horário de Funcionamento</button>
+          <button class="sub-btn" data-sub="avaliacoes">Avaliações</button>
+        </div>
+
+        <div id="sub-dados" class="sub-aba-conteudo active">
+          <div class="card-form">
+            <h3>Dados do Meu Comércio</h3>
+            <form id="formDadosNegocio">
+              <div class="form-group">
+                <label for="inputNomeComercio">Nome do Comércio *</label>
+                <input type="text" id="inputNomeComercio" value="Ateliê da Quebrada" required>
+              </div>
+
+              <div class="form-group-row">
+                <div class="form-group" style="flex: 1;">
+                  <label for="inputBairroComercio">Bairro (Vitrine) *</label>
+                  <input type="text" id="inputBairroComercio" placeholder="Ex: Capão Redondo" required>
+                </div>
+
+                <div class="form-group" style="flex: 1;">
+                  <label for="inputWhatsappComercio">WhatsApp (com DDD) *</label>
+                  <input type="tel" id="inputWhatsappComercio" placeholder="(11) 99999-9999" required>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="inputInstagramComercio">Instagram (@ do negócio ou empreendedor)</label>
+                <input type="text" id="inputInstagramComercio" placeholder="@meunegocioouperfil">
+              </div>
+
+              <div class="form-group">
+                <label for="selectCategoria">Categoria do Negócio *</label>
+                <select id="selectCategoria" required>
+                  <option value="">Selecione uma categoria...</option>
+                  <optgroup label="Beleza e Estética">
+                    <option value="Cabelo & Barbearia">Cabelo & Barbearia</option>
+                    <option value="Unhas & Cílios">Unhas & Cílios</option>
+                    <option value="Estética & Maquiagem">Estética & Maquiagem</option>
+                  </optgroup>
+                  <optgroup label="Alimentação e Gastronomia">
+                    <option value="Confeitaria & Doces">Confeitaria & Doces</option>
+                    <option value="Salgados & Lanches">Salgados & Lanches</option>
+                    <option value="Cozinha Caseira & Assados">Cozinha Caseira & Assados</option>
+                    <option value="Açaí & Bebidas">Açaí & Bebidas</option>
+                  </optgroup>
+                  <optgroup label="Arte, Estilo & Modificações">
+                    <option value="Tatuagem & Piercing">Tatuagem & Piercing</option>
+                    <option value="Moda & Brechó">Moda & Brechó</option>
+                    <option value="Artesanato & Acessórios">Artesanato & Acessórios</option>
+                  </optgroup>
+                  <optgroup label="Serviços Gerais">
+                    <option value="Costura & Consertos">Costura & Consertos</option>
+                    <option value="Manutenção & Reformas">Manutenção & Reformas</option>
+                    <option value="Limpeza & Organização">Limpeza & Organização</option>
+                    <option value="Eventos & Fotografia">Eventos & Fotografia</option>
+                    <option value="Aulas & Reforço">Aulas & Reforço escolar</option>
+                  </optgroup>
+                  <option value="Outros">Outros</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="textDescricao">Descrição do Negócio</label>
+                <textarea id="textDescricao" rows="3">Roupas e acessórios feitos à mão na periferia.</textarea>
+              </div>
+
+              <div class="form-group">
+                <label>Modalidade de Atendimento / Trabalho</label>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="modalidade" value="Delivery / Entrega"> Delivery / Entrega</label>
+                  <label><input type="checkbox" name="modalidade" value="Trabalho em casa / Ateliê"> Trabalho em casa / Ateliê</label>
+                  <label><input type="checkbox" name="modalidade" value="Vou até a casa do cliente"> Vou até a casa do cliente</label>
+                  <label><input type="checkbox" name="modalidade" value="Atendimento por horário marcado"> Atendimento por horário marcado</label>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Formas de Pagamento Aceitas</label>
+                <div class="checkbox-group">
+                  <label><input type="checkbox" name="pagamento" value="Pix"> Pix</label>
+                  <label><input type="checkbox" name="pagamento" value="Cartão de Crédito"> Cartão de Crédito</label>
+                  <label><input type="checkbox" name="pagamento" value="Cartão de Débito"> Cartão de Débito</label>
+                  <label><input type="checkbox" name="pagamento" value="Dinheiro"> Dinheiro</label>
+                  <label><input type="checkbox" name="pagamento" value="Boleto"> Boleto</label>
+                </div>
+              </div>
+
+              <button type="submit" class="btn-primary">💾 Salvar Alterações</button>
+            </form>
+          </div>
+        </div>
+
+        <div id="sub-galeria" class="sub-aba-conteudo">
+          <div class="card-box">
+            <h3>Logo / Foto de Perfil</h3>
+            <p class="sub-titulo">Sua logo aparecerá em destaque na vitrine e no mapa do comércio.</p>
+            <div class="logo-upload-container">
+              <div class="logo-preview-box" id="logoPreviewBox">
+                <span>Sem Logo</span>
+              </div>
+              <div class="logo-actions">
+                <input type="file" id="logoInput" accept="image/*" hidden>
+                <button class="btn-secondary" id="btnUploadLogo">Upload da Logo</button>
+                <button class="btn-del-foto-text" id="btnRemoverLogo">Remover</button>
+              </div>
+            </div>
+          </div>
+
+          <div class="card-box">
+            <h3>Galeria de Fotos</h3>
+            <p class="sub-titulo">A primeira foto adicionada será usada como a <strong>Foto de Capa</strong>.</p>
+            <div class="upload-area">
+              <span>📷 Selecione ou envie imagens do seu produto/espaço</span>
+              <input type="file" id="fotoInput" accept="image/*" hidden>
+              <button class="btn-secondary" style="margin-top: 10px;" id="btnEscolherFoto">Escolher Foto</button>
+            </div>
+            <div class="galeria-grid" id="galeriaPreview"></div>
+          </div>
+        </div>
+
+        <div id="sub-horarios" class="sub-aba-conteudo">
+          <div class="card-form">
+            <h3>Horário de Funcionamento</h3>
+            <p class="sub-titulo">Defina os horários em que o seu estabelecimento está aberto.</p>
+            <div class="horarios-container">
+              <div class="horario-card">
+                <div class="dia-label">Segunda a Sexta</div>
+                <div class="inputs-hora">
+                  <input type="time" id="segAfeInic" value="08:00">
+                  <span>até</span>
+                  <input type="time" id="segAfeFim" value="18:00">
+                </div>
+              </div>
+              <div class="horario-card">
+                <div class="dia-label">Sábado</div>
+                <div class="inputs-hora">
+                  <input type="time" id="sabInic" value="09:00">
+                  <span>até</span>
+                  <input type="time" id="sabFim" value="14:00">
+                </div>
+              </div>
+              <div class="horario-card">
+                <div class="dia-label">Domingo e Feriados</div>
+                <div class="inputs-hora">
+                  <input type="time" id="domInic" value="09:00">
+                  <span>até</span>
+                  <input type="time" id="domFim" value="12:00">
+                </div>
+              </div>
+            </div>
+            <button type="button" class="btn-primary" id="btnSalvarHorarios" style="margin-top: 20px;">
+              💾 Salvar Horários
+            </button>
+          </div>
+        </div>
+
+        <div id="sub-avaliacoes" class="sub-aba-conteudo">
+          <div class="card-box">
+            <h3>Avaliações dos Clientes</h3>
+
+            <div class="lista-avaliacoes" id="listaAvaliacoes">
+              <div class="avaliacao-card" data-id="1">
+                <div class="avaliacao-header">
+                  <strong>Maria Silva <span class="estrelas">⭐⭐⭐⭐⭐</span></strong>
+                  <div class="area-reportar" id="area-reportar-1">
+                    <button class="btn-reportar" data-report-id="1">🚩 Reportar</button>
+                  </div>
+                </div>
+                <p class="avaliacao-texto">"Atendimento excelente e produtos de muita qualidade!"</p>
+              </div>
+
+              <div class="avaliacao-card" data-id="2">
+                <div class="avaliacao-header">
+                  <strong>João Santos <span class="estrelas">⭐☆☆☆☆</span></strong>
+                  <div class="area-reportar" id="area-reportar-2">
+                    <button class="btn-reportar" data-report-id="2">🚩 Reportar</button>
+                  </div>
+                </div>
+                <p class="avaliacao-texto">"Mensagem inadequada ou com conteúdo suspeito."</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+
+      <section id="aba-vitrine" class="aba-conteudo">
+        <div class="card-box">
+          <div class="vitrine-header-info">
+            <h3>Pré-visualização da sua Vitrine</h3>
+            <p class="sub-titulo">Assim é como os clientes visualizarão o seu comércio na plataforma.</p>
+          </div>
+
+          <div class="vitrine-card-preview">
+            <div class="vitrine-capa-wrapper">
+              <div class="vitrine-capa" id="vitrineCapa">
+                <span id="semFotoAviso">Nenhuma capa</span>
+              </div>
+              <div class="vitrine-logo-overlay" id="vitrineLogo">
+                <span>🏬</span>
+              </div>
+            </div>
+            
+            <div class="vitrine-body">
+              <div class="vitrine-top">
+                <h2 id="vitrineNome">Ateliê da Quebrada</h2>
+                <span class="badge-categoria" id="vitrineCategoria">Artesanato</span>
+              </div>
+
+              <p class="vitrine-bairro" id="vitrineBairro" style="font-size: 12px; color: #777; margin-bottom: 4px;">📍 Bairro não informado</p>
+              
+              <p class="vitrine-insta" id="vitrineInstagram" style="font-size: 12px; color: #e1306c; margin-bottom: 8px; font-weight: 500;">
+                📸 <a id="linkInstagramVitrine" href="#" target="_blank" style="color: inherit; text-decoration: none;">Instagram não informado</a>
+              </p>
+
+              <p class="vitrine-descricao" id="vitrineDescricao">Roupas e acessórios feitos à mão na periferia.</p>
+
+              <div class="vitrine-galeria-secao">
+                <strong>📸 Fotos do Espaço / Produtos:</strong>
+                <div id="vitrineGaleriaProdutos" class="vitrine-produtos-grid">
+                  <p class="sem-fotos-txt">Nenhuma foto adicional cadastrada.</p>
+                </div>
+              </div>
+
+              <hr class="divisor">
+
+              <div class="vitrine-detalhes-grid">
+                <div class="detalhe-item">
+                  <strong>🚀 Modos de Atendimento:</strong>
+                  <div id="vitrineModalidades" class="tags-container">Nenhuma selecionada</div>
+                </div>
+
+                <div class="detalhe-item">
+                  <strong>💳 Pagamentos Aceitos:</strong>
+                  <div id="vitrinePagamentos" class="tags-container">Nenhuma selecionada</div>
+                </div>
+
+                <div class="detalhe-item">
+                  <strong>🕒 Horários:</strong>
+                  <ul id="vitrineHorarios" class="lista-horarios-vitrine">
+                    <li>Seg - Sex: 08:00 às 18:00</li>
+                  </ul>
+                </div>
+              </div>
+
+              <a id="btnWhatsappVitrine" href="#" target="_blank" style="text-decoration: none;">
+                <button class="btn-whatsapp-preview">💬 Chamar no WhatsApp (<span id="vitrineZapNum">Não informado</span>)</button>
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="aba-perfil" class="aba-conteudo">
+        <div class="card-form">
+          <h3>Dados do Responsável</h3>
+          <form id="formPerfil">
+            <div class="form-group">
+              <label for="inputNomeUser">Nome Completo</label>
+              <input type="text" id="inputNomeUser" value="Adrielly Rodrigues" required>
+            </div>
+
+            <div class="form-group">
+              <label for="inputEmailUser">E-mail</label>
+              <input type="email" id="inputEmailUser" value="adrielly@email.com" required>
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group" style="flex: 1;">
+                <label for="selectTipoDoc">Tipo de Documento</label>
+                <select id="selectTipoDoc">
+                  <option value="cpf">CPF</option>
+                  <option value="cnpj">CNPJ</option>
+                </select>
+              </div>
+
+              <div class="form-group" style="flex: 2;">
+                <label for="inputDocUser">Número do CPF / CNPJ *</label>
+                <input type="text" id="inputDocUser" placeholder="000.000.000-00" maxlength="14" required>
+              </div>
+            </div>
+
+            <hr class="divisor-form">
+
+            <h3>Mudar Senha</h3>
+            <p class="sub-titulo">Preencha os campos abaixo apenas se desejar alterar sua senha atual.</p>
+
+            <div class="form-group">
+              <label for="inputSenhaAtual">Senha Atual</label>
+              <input type="password" id="inputSenhaAtual" placeholder="Digite sua senha atual">
+            </div>
+
+            <div class="form-group-row">
+              <div class="form-group" style="flex: 1;">
+                <label for="inputNovaSenha">Nova Senha</label>
+                <input type="password" id="inputNovaSenha" placeholder="Digite a nova senha">
+              </div>
+
+              <div class="form-group" style="flex: 1;">
+                <label for="inputConfirmaSenha">Confirmar Nova Senha</label>
+                <input type="password" id="inputConfirmaSenha" placeholder="Confirme a nova senha">
+              </div>
+            </div>
+
+            <button type="submit" class="btn-primary" style="margin-top: 10px;">💾 Atualizar Perfil e Senha</button>
+          </form>
+        </div>
+
+        <div class="card-box card-danger-zone">
+          <h3>Gerenciamento da Conta</h3>
+          <p class="sub-titulo">Gerencie a visibilidade do seu anúncio na plataforma ou encerre sua conta definitivamente.</p>
+          
+          <div class="conta-acoes-grid">
+            <div class="status-conta-box">
+              <span>Status Atual do Anúncio: <strong id="lblStatusConta" class="status-ativo">Ativo</strong></span>
+              <button type="button" class="btn-warning" id="btnToggleStatusConta">Desativar Anúncio / Conta</button>
+            </div>
+            
+            <hr class="divisor-form">
+
+            <div class="delete-conta-box">
+              <h4>Excluir Conta Permanentemente</h4>
+              <p class="sub-titulo">A exclusão apagará todos os dados do seu comércio e não poderá ser desfeita.</p>
+              <button type="button" class="btn-danger" id="btnExcluirConta">🗑️ Excluir Minha Conta</button>
+            </div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+
+  <div id="modalReportar" class="modal-overlay hidden">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h4>Reportar Avaliação</h4>
+        <button class="modal-close" id="btnFecharModalReportar">×</button>
+      </div>
+      <div class="modal-body">
+        <p class="sub-titulo">Indique o motivo pelo qual deseja denunciar esta avaliação:</p>
+        <input type="hidden" id="reportAvaliacaoId">
+        
+        <div class="form-group" style="margin-top: 12px;">
+          <label for="motivoReport">Motivo:</label>
+          <select id="motivoReport">
+            <option value="">Selecione um motivo...</option>
+            <option value="ofensivo">Linguagem ofensiva ou discurso de ódio</option>
+            <option value="spam">Spam ou propaganda enganosa</option>
+            <option value="falso">Avaliação falsa ou de concorrente</option>
+            <option value="dados_pessoais">Exposição de dados pessoais</option>
+            <option value="outro">Outro motivo</option>
+          </select>
+        </div>
+
+        <div class="form-group">
+          <label for="detalhesReport">Detalhes adicionais (opcional):</label>
+          <textarea id="detalhesReport" rows="3" placeholder="Explique brevemente o ocorrido..."></textarea>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn-secondary" id="btnCancelarReportar">Cancelar</button>
+        <button type="button" class="btn-danger" id="btnEnviarDenuncia">Enviar Denúncia</button>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="painel.js"></script>
+</body>
+</html>
