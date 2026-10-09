@@ -1,3 +1,10 @@
+/* =======================================================================
+ * ESTILOS GLOBAIS E PÁGINA INICIAL (INDEX)
+ * ======================================================================= */
+
+/* ==========================================
+ * 1. FONTES E VARIÁVEIS GLOBAIS
+ * ========================================== */
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap');
 
 :root {
@@ -12,12 +19,13 @@
     --cor-bege-destaque: #FFE4BD;
     --cor-branco-puro: #f1f1f1;
 
+    /* Medidas */
     --largura-maxima-conteudo: 1200px;
     --raio-borda-padrao: 16px;
     --transicao-padrao: 0.25s ease-in-out;
 }
 
-/* Reset global de espaçamento e box model */
+/* Reset global */
 *,
 *::before,
 *::after {
@@ -40,9 +48,7 @@ body {
     -moz-osx-font-smoothing: grayscale;
 }
 
-/* Resets específicos de elementos estruturais */
-ul,
-ol {
+ul, ol {
     list-style: none;
 }
 
@@ -57,16 +63,12 @@ img {
     height: auto;
 }
 
-button,
-input {
+button, input {
     font-family: inherit;
     font-size: inherit;
 }
 
-/* Indicador de foco visível para navegação via teclado (WCAG 2.4.7).
-   O outline é definido de forma global e sobrescrito com uma cor clara
-   apenas dentro do header quando ele está no estado escuro, garantindo
-   contraste em ambos os fundos. */
+/* Acessibilidade: Indicador de foco */
 a:focus-visible,
 button:focus-visible,
 input:focus-visible {
@@ -75,20 +77,12 @@ input:focus-visible {
     border-radius: 4px;
 }
 
-/* Suporte à preferência do sistema por movimento reduzido.
-   Usuários que ativam essa opção no sistema operacional costumam ter
-   sensibilidade a animações (enjoo, distração, condições vestibulares).
-   Em vez de reescrever cada transição individualmente, neutralizamos
-   globalmente animações, transições e a rolagem suave — a troca
-   automática do carrossel é tratada à parte, em JavaScript. */
+/* Acessibilidade: Movimento reduzido */
 @media (prefers-reduced-motion: reduce) {
     html {
         scroll-behavior: auto;
     }
-
-    *,
-    *::before,
-    *::after {
+    *, *::before, *::after {
         animation-duration: 0.01ms !important;
         animation-iteration-count: 1 !important;
         transition-duration: 0.01ms !important;
@@ -96,9 +90,9 @@ input:focus-visible {
     }
 }
 
-/* ==========================================================================
-   CABEÇALHO
-   ========================================================================== */
+/* ==========================================
+ * 2. CABEÇALHO (HEADER) E MENU SANDUÍCHE
+ * ========================================== */
 header.cabecalho-principal {
     position: fixed;
     top: 0;
@@ -115,111 +109,252 @@ header.cabecalho-principal {
     -webkit-backdrop-filter: blur(2px);
     box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
     transition: background-color var(--transicao-padrao), backdrop-filter var(--transicao-padrao);
-
-    /* Estado escuro, aplicado via JS ao sair da área do hero */
-    &.header-escuro {
-        background-color: rgba(49, 39, 25, 0.85);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-    }
-
-    &.header-escuro nav a {
-        color: var(--cor-branco-puro);
-    }
-
-    &.header-escuro nav a:hover {
-        color: var(--cor-bege-destaque);
-    }
-
-    &.header-escuro .auth-acoes .btn-link:first-child {
-        color: var(--cor-branco-puro);
-    }
-
-    &.header-escuro a:focus-visible,
-    &.header-escuro button:focus-visible,
-    &.header-escuro input:focus-visible {
-        outline-color: var(--cor-branco-puro);
-    }
-
-    /* Logomarca */
-    & .logo img {
-        height: 48px;
-        width: auto;
-        object-fit: contain;
-    }
-
-    /* Menu de navegação */
-    & nav ul {
-        display: flex;
-        gap: 1.5rem;
-    }
-
-    & nav a {
-        font-weight: 500;
-        color: var(--cor-texto-primario);
-        transition: color var(--transicao-padrao);
-    }
-
-    & nav a:hover {
-        color: var(--cor-texto-primario);
-        opacity: 0.7;
-    }
-
-    /* Formulário de busca */
-    & form[role="search"] {
-        display: flex;
-        align-items: center;
-        background-color: rgba(255, 255, 255, 0.85);
-        border-radius: 9999px;
-        padding: 0.5rem 1rem;
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-    }
-
-    & form[role="search"] input {
-        border: none;
-        background: transparent;
-        font-size: 0.9rem;
-        width: 220px;
-    }
-
-    & form[role="search"] button {
-        border: none;
-        background: transparent;
-        cursor: pointer;
-        font-size: 0.85rem;
-        font-weight: 700;
-    }
-
-    /* Área de autenticação */
-    & .auth-acoes {
-        display: flex;
-        align-items: center;
-        gap: 1rem;
-    }
-
-    & .auth-acoes .btn-link:first-child {
-        color: var(--cor-branco-puro);
-    }
-
-    & .auth-acoes .btn-link:last-child {
-        background-color: var(--cor-branco-puro);
-        padding: 0.5rem 1.25rem;
-        border-radius: 9999px;
-        font-weight: 700;
-        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
-    }
-
-    /* ==========================================================================
-   MENU DROPDOWN (BALÃOZINHO DE CATEGORIAS)
-   ========================================================================== */
-
-/* Contêiner principal do dropdown */
-.menu-dropdown {
-    position: relative; /* Define que o balãozinho flutuante ficará posicionado em relação a este item */
+    flex-wrap: wrap; /* Permite que o menu desça no mobile */
 }
 
-/* O corpo do balãozinho */
+/* Botão do menu escondido no Desktop */
+.btn-menu-mobile {
+    display: none;
+    background: transparent;
+    border: none;
+    font-size: 1.8rem;
+    color: var(--cor-texto-primario);
+    cursor: pointer;
+}
+
+.menu-colapsavel {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    width: 100%;
+    justify-content: flex-end;
+    flex: 1; /* Ocupa o espaço restante ao lado da logo */
+}
+
+header.cabecalho-principal.header-escuro {
+    background-color: rgba(49, 39, 25, 0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+}
+
+header.cabecalho-principal.header-escuro nav a { color: var(--cor-branco-puro); }
+header.cabecalho-principal.header-escuro nav a:hover { color: var(--cor-bege-destaque); }
+header.cabecalho-principal.header-escuro .btn-menu-mobile { color: var(--cor-branco-puro); } /* Menu branco no escuro */
+
+header.cabecalho-principal.header-escuro a:focus-visible,
+header.cabecalho-principal.header-escuro button:focus-visible,
+header.cabecalho-principal.header-escuro input:focus-visible {
+    outline-color: var(--cor-branco-puro);
+}
+
+.logo img {
+    height: 48px;
+    width: auto;
+    object-fit: contain;
+}
+
+header.cabecalho-principal nav ul {
+    display: flex;
+    gap: 1.5rem;
+}
+
+header.cabecalho-principal nav a {
+    font-weight: 500;
+    color: var(--cor-texto-primario);
+    transition: color var(--transicao-padrao);
+}
+
+header.cabecalho-principal nav a:hover {
+    color: var(--cor-texto-primario);
+    opacity: 0.7;
+}
+
+header.cabecalho-principal form[role="search"] {
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.85);
+    border-radius: 9999px;
+    padding: 0.5rem 1rem;
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+}
+
+header.cabecalho-principal form[role="search"] input {
+    border: none;
+    background: transparent;
+    font-size: 0.9rem;
+    width: 220px;
+}
+
+header.cabecalho-principal form[role="search"] button {
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 0.85rem;
+    font-weight: 700;
+}
+
+/* AJUSTE DOS BOTÕES DE LOGIN E CADASTRO */
+.auth-acoes {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.auth-acoes .btn-link {
+    background-color: var(--cor-branco-puro);
+    color: var(--cor-texto-primario) !important;
+    padding: 0.5rem 1.25rem;
+    border-radius: 9999px;
+    font-weight: 700;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.08);
+    transition: transform var(--transicao-padrao), box-shadow var(--transicao-padrao);
+}
+
+.auth-acoes .btn-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.12);
+}
+
+/* ==========================================
+ * COMPORTAMENTO DO HEADER NO MOBILE (OFF-CANVAS)
+ * ========================================== */
+/* Fundo escuro atrás do menu lateral */
+.overlay-menu {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 150;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.overlay-menu.ativo {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* Botão Fechar (X) escondido no PC */
+.btn-fechar-menu {
+    display: none; 
+}
+
+@media (max-width: 900px) {
+    header.cabecalho-principal {
+        padding: 1rem;
+    }
+
+    /* Remove o blur no mobile: ele quebra o position:fixed do menu */
+    header.cabecalho-principal,
+    header.cabecalho-principal.header-escuro {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+    }
+    header.cabecalho-principal { background-color: rgba(255, 244, 228, 0.92); }
+    header.cabecalho-principal.header-escuro { background-color: rgba(49, 39, 25, 0.95); }
+
+    .btn-menu-mobile { display: block; }
+
+    .overlay-menu {
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        touch-action: none;
+    }
+
+    .menu-colapsavel {
+        position: fixed;
+        top: 0;
+        right: 0;
+        width: 85%;
+        max-width: 320px;
+        height: 100vh;
+        height: 100dvh; /* altura real da tela no celular */
+        background-color: var(--cor-branco-puro);
+        z-index: 200;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        align-items: stretch;
+        padding: 0.75rem 1.25rem 1.25rem;
+        gap: 1rem;
+        box-shadow: -5px 0 20px rgba(0,0,0,0.15);
+        transform: translateX(100%);
+        visibility: hidden;
+        transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), visibility 0.35s;
+        overflow-y: auto;
+        overscroll-behavior: contain; /* rolar o menu NÃO rola a página */
+    }
+
+    .menu-colapsavel.aberto {
+        transform: translateX(0);
+        visibility: visible;
+    }
+
+    /* Texto sempre escuro dentro do menu, mesmo com header escuro */
+    header.cabecalho-principal.header-escuro .menu-colapsavel nav a,
+    header.cabecalho-principal.header-escuro .menu-colapsavel nav a:hover,
+    header.cabecalho-principal.header-escuro .menu-colapsavel .btn-fechar-menu,
+    header.cabecalho-principal.header-escuro .menu-colapsavel form[role="search"] button {
+        color: var(--cor-texto-primario) !important;
+    }
+
+    .btn-fechar-menu {
+        display: block;
+        align-self: flex-end;
+        background: transparent;
+        border: none;
+        font-size: 1.6rem;
+        line-height: 1;
+        font-weight: bold;
+        color: var(--cor-texto-primario);
+        cursor: pointer;
+        padding: 10px;
+        margin-right: -10px;
+    }
+
+    header.cabecalho-principal nav ul {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        width: 100%;
+    }
+
+    header.cabecalho-principal form[role="search"] {
+        width: 100%;
+        margin: 0;
+        background-color: #fff;
+    }
+    header.cabecalho-principal form[role="search"] input { width: 100%; }
+
+    /* Login e Cadastro lado a lado, logo abaixo da busca */
+    .auth-acoes {
+        flex-direction: row;
+        width: 100%;
+        margin-top: 0;
+        padding-top: 0;
+        gap: 0.75rem;
+    }
+    .auth-acoes .btn-link {
+        flex: 1;
+        text-align: center;
+        padding: 0.6rem 0.5rem;
+        border: 1px solid rgba(49, 39, 25, 0.15);
+    }
+}
+
+
+/* ==========================================
+ * 3. MENU DROPDOWN (BALÃO DE CATEGORIAS)
+ * ========================================== */
+.menu-dropdown {
+    position: relative; 
+}
+
 .dropdown-balao {
     position: absolute;
     top: 150%; 
@@ -233,114 +368,62 @@ header.cabecalho-principal {
     flex-direction: column;
     z-index: 200; 
     transition: opacity var(--transicao-padrao), transform var(--transicao-padrao);
-    
-    /* ======== NOVAS REGRAS PARA A ROLAGEM ======== */
-    /* Cada item tem cerca de 42px de altura. 
-       220px é suficiente para mostrar as 5 primeiras opções 
-       e um "pedacinho" da 6ª, dando a dica visual de que dá para rolar! */
     max-height: 220px; 
-    
-    /* Se o conteúdo passar de 220px, cria uma barra de rolagem vertical */
     overflow-y: auto; 
 }
 
-/* ==========================================================================
-   ESTILIZAÇÃO DA BARRA DE ROLAGEM DO BALÃOZINHO (Design Moderno)
-   ========================================================================== */
-/* Largura da barra de rolagem */
-.dropdown-balao::-webkit-scrollbar {
-    width: 6px; 
-}
+.dropdown-balao::-webkit-scrollbar { width: 6px; }
+.dropdown-balao::-webkit-scrollbar-track { background: var(--cor-branco-puro); border-radius: var(--raio-borda-padrao); }
+.dropdown-balao::-webkit-scrollbar-thumb { background: #cccccc; border-radius: var(--raio-borda-padrao); }
+.dropdown-balao::-webkit-scrollbar-thumb:hover { background: #aaaaaa; }
 
-/* O fundo (trilho) da barra de rolagem */
-.dropdown-balao::-webkit-scrollbar-track {
-    background: var(--cor-branco-puro); 
-    border-radius: var(--raio-borda-padrao);
-}
-
-/* A parte que o utilizador clica e arrasta (o polegar) */
-.dropdown-balao::-webkit-scrollbar-thumb {
-    background: #cccccc; /* Uma cor cinza neutra */
-    border-radius: var(--raio-borda-padrao);
-}
-
-/* Quando o utilizador passa o rato em cima da barra de rolagem */
-.dropdown-balao::-webkit-scrollbar-thumb:hover {
-    background: #aaaaaa; /* Fica um pouco mais escura */
-}
-
-/* Classe utilizada pelo JavaScript para esconder o menu */
 .dropdown-balao.escondido {
     display: none !important;
     opacity: 0;
-    transform: translateY(-10px); /* Efeito suave de subida ao fechar */
+    transform: translateY(-10px); 
 }
 
-/* Classe utilizada pelo JavaScript para mostrar o menu */
 .dropdown-balao.mostrar {
     display: flex !important;
     opacity: 1;
     transform: translateY(0);
 }
 
-/* Estilo de cada item/link dentro do balãozinho */
-.dropdown-balao li {
-    width: 100%;
-}
+.dropdown-balao li { width: 100%; }
 
 .dropdown-balao a {
     display: block;
     padding: 0.75rem 1.5rem;
     font-size: 0.9rem;
     font-weight: 500;
-    
-    /* Forçamos a cor escura e removemos as regras de hover antigas para os itens internos do balão */
     color: var(--cor-texto-primario) !important; 
 }
 
-/* Efeito ao passar o rato (hover) apenas nos itens internos do balãozinho */
 .dropdown-balao a:hover {
     background-color: var(--cor-card-bege);
     opacity: 1 !important;
 }
 
-    /* Em telas médias, a busca cede a primeira linha ao menu e ao acesso,
-       evitando que tudo se comprima numa única linha */
-    @media (max-width: 900px) {
-        & form[role="search"] {
-            order: 3;
-            width: 100%;
-            justify-content: center;
-        }
-
-        & form[role="search"] input {
-            width: 100%;
-            flex: 1;
-        }
+@media (max-width: 900px) {
+    .dropdown-balao,
+    .dropdown-balao.escondido,
+    .dropdown-balao.mostrar {
+        transform: none;
     }
-
-    /* Em telas pequenas, empilha logo / menu / busca / acesso verticalmente */
-    @media (max-width: 640px) {
-        flex-direction: column;
-        align-items: stretch;
-        padding: 1rem 1.25rem;
-
-        & nav ul {
-            flex-wrap: wrap;
-            justify-content: center;
-        }
-
-        & .auth-acoes {
-            justify-content: center;
-        }
+    .dropdown-balao {
+        position: static;
+        width: 100%;
+        min-width: 0;
+        margin-top: 0.5rem;
+        max-height: 160px;
+        box-shadow: none;
+        background-color: var(--cor-card-bege);
     }
 }
 
-/* ==========================================================================
-   SEÇÃO HERO / CARROSSEL
-   ========================================================================== */
-
-/* Contêiner principal: âncora de posicionamento das camadas do carrossel */
+/* ==========================================
+ * 4. SEÇÃO HERO (CARROSSEL)
+ * ========================================== */
 .hero-carrossel {
     position: relative;
     width: 100%;
@@ -349,19 +432,9 @@ header.cabecalho-principal {
     align-items: center;
     padding-top: 120px;
     overflow: hidden;
-    /* Cor de fallback enquanto as imagens carregam. Usa um tom já existente
-       na paleta (creme de fundo) em vez de uma cor solta, mantendo
-       consistência visual com o restante do site. */
     background-color: var(--cor-fundo-creme);
 }
 
-@media (max-width: 640px) {
-    .hero-carrossel {
-        padding-top: 160px;
-    }
-}
-
-/* Camada de mídias (background) */
 .carrossel-slides {
     position: absolute;
     top: 0;
@@ -393,7 +466,6 @@ header.cabecalho-principal {
     object-position: center;
 }
 
-/* Botão de pausa do carrossel, inserido dinamicamente via JavaScript */
 .carrossel-botao-pausa {
     position: absolute;
     z-index: 20;
@@ -416,7 +488,6 @@ header.cabecalho-principal {
     transform: translateY(-2px);
 }
 
-/* Conteúdo textual em primeiro plano */
 .hero-conteudo {
     position: relative;
     z-index: 10;
@@ -437,7 +508,6 @@ header.cabecalho-principal {
     margin-bottom: 2rem;
 }
 
-/* Botões de chamada para ação */
 .hero-botoes {
     display: flex;
     gap: 1.25rem;
@@ -470,42 +540,82 @@ header.cabecalho-principal {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
 }
 
-/* ==========================================================================
-   SEÇÃO PROFISSÕES
-   ========================================================================== */
+@media (max-width: 900px) {
+    .hero-carrossel { padding-top: 150px; } /* Ajuste pelo menu mobile */
+    .hero-conteudo {
+        margin-left: 0;
+        padding: 1.5rem;
+        text-align: center;
+    }
+    .hero-botoes {
+        flex-direction: column;
+        gap: 1rem;
+        align-items: stretch;
+    }
+}
+
+/* ==========================================
+ * 5. SEÇÃO DE PROFISSÕES (CARROSSEL CONTÍNUO)
+ * Texto em cima, faixa de fotos girando embaixo.
+ * ========================================== */
 .secao-profissoes {
-    padding: 5rem 2.5rem;
+    padding: 4rem 0 5rem;
     background-color: var(--cor-fundo-creme);
+    overflow: hidden;                 /* nada vaza para os lados da página */
 }
 
 .profissoes-container {
     max-width: var(--largura-maxima-conteudo);
-    margin: 0 auto;
-    display: grid;
-    grid-template-columns: 300px 1fr;
-    gap: 2.5rem;
-    align-items: center;
+    margin: 0 auto 2.5rem;
+    padding: 0 2.5rem;
 }
 
 .profissoes-cabecalho h2 {
-    font-size: 1.85rem;
-    line-height: 1.3;
+    font-size: clamp(2rem, 4.5vw, 3.1rem);
+    line-height: 1.15;
     margin-bottom: 1rem;
 }
 
 .profissoes-cabecalho p {
     font-size: 0.95rem;
-    color: var(--cor-texto-secundario);
+    max-width: 30rem;
+    color: var(--cor-texto-primario);
 }
 
+/* Faixa de fotos: ocupa a largura toda da tela */
+.profissoes-carrossel {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+}
+
+/* A "esteira" que se move. As variáveis são definidas pelo JS:
+ *   --largura-set : largura de um conjunto de 4 fotos
+ *   --duracao     : tempo de uma volta completa */
 .profissoes-galeria {
     display: flex;
-    gap: 1rem;
+    width: max-content;
+    animation: girar-fotos var(--duracao, 30s) linear infinite;
+    will-change: transform;
 }
 
+.profissoes-carrossel:hover .profissoes-galeria,
+.profissoes-carrossel:focus-within .profissoes-galeria,
+.profissoes-carrossel.pausado .profissoes-galeria {
+    animation-play-state: paused;
+}
+
+@keyframes girar-fotos {
+    from { transform: translateX(0); }
+    to   { transform: translateX(calc(-1 * var(--largura-set, 50%))); }
+}
+
+/* margin-right (e não gap) para o loop fechar sem "pulo" */
 .galeria-item {
-    flex: 1;
+    flex: none;
+    width: clamp(160px, 20vw, 260px);
     aspect-ratio: 3 / 4;
+    margin-right: 1rem;
     border-radius: var(--raio-borda-padrao);
     overflow: hidden;
 }
@@ -519,6 +629,7 @@ header.cabecalho-principal {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    display: block;
     transition: transform var(--transicao-padrao);
 }
 
@@ -526,23 +637,35 @@ header.cabecalho-principal {
     transform: scale(1.05);
 }
 
-@media (max-width: 900px) {
-    .profissoes-container {
-        grid-template-columns: 1fr;
-    }
-
-    .profissoes-galeria {
-        flex-wrap: wrap;
-    }
-
-    .galeria-item {
-        flex-basis: calc(50% - 0.5rem);
-    }
+/* Botão de pausa (acessibilidade) */
+.carrossel-pausa-profissoes {
+    display: block;
+    margin: 1rem auto 0;
+    padding: 0.4rem 1rem;
+    font: inherit;
+    font-size: 0.85rem;
+    color: var(--cor-texto-primario);
+    background: transparent;
+    border: 1px solid currentColor;
+    border-radius: 999px;
+    cursor: pointer;
 }
 
-/* ==========================================================================
-   SEÇÃO CATEGORIAS POPULARES
-   ========================================================================== */
+@media (max-width: 900px) {
+    .profissoes-container { padding: 0 1.25rem; }
+    .secao-profissoes { padding: 3rem 0 4rem; }
+    .galeria-item { width: 55vw; max-width: 240px; }
+}
+
+/* Movimento reduzido: sem animação, o usuário arrasta/rola a faixa */
+@media (prefers-reduced-motion: reduce) {
+    .profissoes-carrossel { overflow-x: auto; }
+    .profissoes-galeria { animation: none; }
+}
+
+/* ==========================================
+ * 6. SEÇÃO DE CATEGORIAS POPULARES
+ * ========================================== */
 .secao-categorias {
     padding: 5rem 2.5rem;
     background-color: var(--cor-fundo-creme);
@@ -585,21 +708,9 @@ header.cabecalho-principal {
     transition: transform var(--transicao-padrao), box-shadow var(--transicao-padrao);
 }
 
-.categoria-card img {
-    margin-bottom: 0.85rem;
-}
-
-.categoria-card h3 {
-    font-size: 1rem;
-    font-weight: 700;
-    margin-bottom: 0.25rem;
-}
-
-.categoria-card span {
-    font-size: 0.8rem;
-    color: var(--cor-texto-secundario);
-    opacity: 0.65;
-}
+.categoria-card img { margin-bottom: 0.85rem; }
+.categoria-card h3 { font-size: 1rem; font-weight: 700; margin-bottom: 0.25rem; }
+.categoria-card span { font-size: 0.8rem; color: var(--cor-texto-secundario); opacity: 0.65; }
 
 .categoria-card a:hover {
     transform: translateY(-4px);
@@ -607,18 +718,14 @@ header.cabecalho-principal {
 }
 
 @media (max-width: 900px) {
-    .categorias-container {
-        grid-template-columns: 1fr;
-    }
-
-    .categorias-lista {
-        grid-template-columns: repeat(2, 1fr);
-    }
+    .categorias-container { grid-template-columns: 1fr; }
+    .categorias-lista { grid-template-columns: repeat(2, 1fr); gap: 15px; } /* Grid 2x2 no mobile */
+    .categoria-card a { padding: 1.25rem 0.5rem; }
 }
 
-/* ==========================================================================
-   SEÇÃO SOBRE
-   ========================================================================== */
+/* ==========================================
+ * 7. SEÇÃO SOBRE NÓS
+ * ========================================== */
 .secao-sobre {
     padding: 4rem 2.5rem;
     background-color: var(--cor-fundo-creme);
@@ -644,38 +751,200 @@ header.cabecalho-principal {
     border-radius: var(--raio-borda-padrao);
 }
 
-.sobre-texto h2 {
-    font-size: 2rem;
-    margin-bottom: 1.25rem;
-}
-
+.sobre-texto h2 { font-size: 2rem; margin-bottom: 1.25rem; }
 .sobre-texto p {
     font-size: 0.95rem;
     line-height: 1.65;
     color: var(--cor-texto-secundario);
     margin-bottom: 1rem;
 }
-
-.sobre-texto p:last-child {
-    margin-bottom: 0;
-}
+.sobre-texto p:last-child { margin-bottom: 0; }
 
 @media (max-width: 900px) {
-    .sobre-container {
-        grid-template-columns: 1fr;
+    .sobre-container { grid-template-columns: 1fr; }
+}
+
+/* ==========================================
+ * 8. DADOS E ESTATÍSTICAS
+ * ========================================== */
+.container-dados {
+    max-width: 1100px;
+    margin: 40px auto;
+    padding: 40px 30px;
+    background-color: #FFF3E4; 
+    border-radius: 12px;
+}
+
+.dados {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.contas {
+    flex: 1;
+    min-width: 160px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.icone-bg {
+    width: 65px;
+    height: 65px;
+    background-color: #FFEDD5; 
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+}
+
+.contas img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.contas h3 {
+    margin: 0 0 4px 0;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: #2B2B2B;
+}
+
+.contas p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #555555;
+    font-weight: 400;
+}
+
+/* ATUALIZAÇÃO PARA DESIGN DO FIGMA (GRELHA 2x2 NO MOBILE) */
+@media (max-width: 768px) {
+    .dados {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 25px 15px;
     }
 }
 
-/* ==========================================================================
-   SEÇÃO MAPA
-   ========================================================================== */
+/* ==========================================
+ * 9. DEPOIMENTOS (QUEM VIVE, RECOMENDA)
+ * ========================================== */
+.coment {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    padding: 5rem 2.5rem;
+}
+
+.coment .headerdepoimentos h2 {
+    font-size: 2.5rem;
+    font-weight: 500;
+    margin-bottom: 8px;
+    color: #312719;
+}
+
+.coment .headerdepoimentos p {
+    font-size: 1.25rem;
+    font-weight: 300;
+    color: #312719;
+    margin-bottom: 48px;
+}
+
+.coment .card-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 24px;
+}
+
+.coment .card {
+    background-color: #FFEDD5;
+    padding: 40px 24px 32px 24px;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.coment .avatar-container {
+    width: 80px;
+    height: 80px;
+    margin-bottom: 24px;
+}
+
+.coment .avatar {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.coment .quote {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #312719;
+    margin-bottom: 24px;
+    flex-grow: 1;
+    font-weight: bold;
+}
+
+.coment .autor {
+    font-size: 0.85rem;
+    color: #312719;
+    font-weight: 500;
+}
+
+/* Ajuste mobile: vira carrossel horizontal */
+@media (max-width: 900px) {
+    .coment {
+        padding: 4rem 1.5rem;
+    }
+
+    .coment .header h2 {
+        font-size: 2rem;
+    }
+
+    .coment .header p {
+        font-size: 1.05rem;
+        margin-bottom: 32px;
+    }
+
+    .coment .card-container {
+        display: flex;
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        padding-bottom: 15px;
+        gap: 15px;
+        scroll-snap-type: x mandatory;
+    }
+
+    .coment .card-container::-webkit-scrollbar {
+        display: none;
+    }
+
+    .coment .card {
+        flex: 0 0 85%;
+        scroll-snap-align: center;
+    }
+}
+
+/* ==========================================
+ * 10. SEÇÃO DO MAPA INTERATIVO (CHAMADA)
+ * ========================================== */
 .secao-mapa {
     position: relative;
     min-height: 480px;
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url('imagens/bandeirinhas.jpg');
+    background-image: url('../imagens/bandeirinhas.jpg');
     background-size: cover;
     background-position: center;
     overflow: hidden;
@@ -706,11 +975,7 @@ header.cabecalho-principal {
     margin-bottom: 0.75rem;
 }
 
-.mapa-card h2 {
-    font-size: 1.5rem;
-    margin-bottom: 0.75rem;
-}
-
+.mapa-card h2 { font-size: 1.5rem; margin-bottom: 0.75rem; }
 .mapa-card p {
     font-size: 0.9rem;
     color: var(--cor-texto-secundario);
@@ -731,9 +996,17 @@ header.cabecalho-principal {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.12);
 }
 
-/* ==========================================================================
-   RODAPÉ
-   ========================================================================== */
+@media (max-width: 768px) {
+    .mapa-card {
+        margin: 0 1.5rem;
+        padding: 2rem 1.5rem;
+    }
+}
+
+/* ==========================================
+ * 11. RODAPÉ (FOOTER)
+ * ========================================== */
+
 .rodape-principal {
     background-color: var(--cor-card-bege);
 }
@@ -746,10 +1019,6 @@ header.cabecalho-principal {
 
 .rodape-marca {
     max-width: 420px;
-}
-
-.rodape-logo-link img {
-    margin-bottom: 1rem;
 }
 
 .rodape-marca p {
@@ -789,60 +1058,5 @@ header.cabecalho-principal {
     font-size: 0.8rem;
     color: var(--cor-texto-secundario);
 }
-.container-dados {
-    max-width: 1100px;
-    margin: 40px auto;
-    padding: 40px 30px;
-    background-color: #FFF3E4; /* Fundo bege suave do container */
-    border-radius: 12px;
-}
 
-.dados {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    gap: 20px;
-    flex-wrap: wrap;
-}
 
-.contas {
-    flex: 1;
-    min-width: 160px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-}
-
-/* Círculo de fundo ao redor do ícone */
-.icone-bg {
-    width: 65px;
-    height: 65px;
-    background-color: #FFEDD5; /* Bege um pouco mais escuro para o círculo */
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 15px;
-}
-
-/* Ícone menor centralizado */
-.contas img {
-    width: 28px;
-    height: 28px;
-    object-fit: contain;
-}
-
-.contas h3 {
-    margin: 0 0 4px 0;
-    font-size: 1.6rem;
-    font-weight: 500;
-    color: #2B2B2B;
-}
-
-.contas p {
-    margin: 0;
-    font-size: 0.9rem;
-    color: #555555;
-    font-weight: 400;
-}

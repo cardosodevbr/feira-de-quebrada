@@ -71,16 +71,21 @@ body{
 .btn-perfil {
     flex: 1;
     padding: 8px 0;
-    border: 1px solid #d4be95;
+    background-color: transparent; /* Sem preenchimento */
+    border: 1.5px solid #312719;   /* Apenas a borda */
     border-radius: 8px;
     font-size: 13px;
+    font-weight: 600;
+    color: #312719;                /* Letra escura no botão não selecionado */
     cursor: pointer;
+    transition: all 0.2s ease;
 }
 
 .btn-perfil.ativo {
-    background-color: #edd19c;
+    background-color: #EEC994;    /* Fundo escuro */
+    color: #ffffff;                /* Letras brancas */
+    border-color: #312719;
 }
-
 
 form{
     width: 100%;

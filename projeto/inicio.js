@@ -1,10 +1,9 @@
-// ============================================================================
-// Carrossel do Hero
-// ============================================================================
-// Alterna os slides automaticamente a cada INTERVALO_SLIDE_MS, expõe controle
-// de pausa/retomada ao usuário e respeita a preferência do sistema por
-// movimento reduzido (prefers-reduced-motion), além de suspender a troca
-// automática quando a aba está em segundo plano.
+/* =======================================================================
+ * CARROSSEL DO HERO (DESTAQUES)
+ * ======================================================================= */
+// Alterna os slides automaticamente, expõe controle de pausa/retomada ao usuário,
+// respeita a preferência do sistema por movimento reduzido (prefers-reduced-motion), 
+// e suspende a troca automática quando a aba do navegador está em segundo plano.
 (function () {
     const INTERVALO_SLIDE_MS = 10000;
 
@@ -75,14 +74,13 @@
     }
 
     // O botão é a única forma de pausar: o carrossel não para ao passar o
-    // mouse sobre ele, por decisão do projeto.
+    // mouse sobre ele, por decisão de usabilidade do projeto.
     botaoPausa.addEventListener('click', () => {
         emReproducao ? pausarReproducao() : iniciarReproducao();
     });
 
-    // Em segundo plano a troca automática é suspensa para não desperdiçar
-    // processamento; ao voltar, só é retomada se o usuário estava, de fato,
-    // com a reprodução ativa antes da aba perder o foco.
+    // Em segundo plano a troca automática é suspensa para economizar
+    // processamento; ao voltar, só é retomada se o usuário estava com a reprodução ativa.
     document.addEventListener('visibilitychange', () => {
         if (document.hidden) {
             clearInterval(intervaloId);
@@ -101,13 +99,12 @@
     }
 })();
 
-// ============================================================================
-// Header: escurece ao sair da área do hero
-// ============================================================================
+/* =======================================================================
+ * EFEITO DO CABEÇALHO (HEADER ESCURO NO SCROLL)
+ * ======================================================================= */
 // A altura do hero e do header só mudam com o layout da página (resize),
 // não a cada pixel rolado — por isso o limite de troca é calculado uma
-// única vez e reaproveitado a cada evento de scroll, em vez de forçar
-// reflow do navegador continuamente.
+// única vez e reaproveitado a cada evento de scroll, evitando reflow contínuo.
 (function () {
     const header = document.querySelector('.cabecalho-principal');
     const hero = document.querySelector('.hero-carrossel');
@@ -127,6 +124,7 @@
     recalcularLimite();
     atualizarHeader();
 
+    // Evento passive: true melhora a performance de rolagem no navegador
     window.addEventListener('scroll', atualizarHeader, { passive: true });
     window.addEventListener('resize', () => {
         recalcularLimite();
@@ -134,44 +132,159 @@
     });
 })();
 
-// ============================================================================
-// Funcionalidade do Menu Dropdown (Balãozinho de Categorias)
-// ============================================================================
+/* =======================================================================
+ * MENU DROPDOWN (BALÃO DE CATEGORIAS)
+ * ======================================================================= */
 (function () {
-    // 1. Identificamos os elementos na página HTML
     const btnCategorias = document.getElementById('btn-categorias');
     const listaCategorias = document.getElementById('lista-categorias');
 
-    // Se a página não tiver este menu, paramos o código por aqui para evitar erros
     if (!btnCategorias || !listaCategorias) return;
 
-    // 2. Ação de clicar no botão "Categorias"
+    // Ação de clicar no botão "Categorias"
     btnCategorias.addEventListener('click', function(evento) {
-        // Impede que o ecrã salte para o topo da página (comportamento padrão dos links com "#")
+        // Impede que a tela pule para o topo da página (comportamento padrão de links vazios)
         evento.preventDefault(); 
         
-        // Verifica se o balãozinho está escondido
         if (listaCategorias.classList.contains('escondido')) {
-            // Se estiver escondido, mostra-o!
             listaCategorias.classList.remove('escondido');
             listaCategorias.classList.add('mostrar');
-            btnCategorias.setAttribute('aria-expanded', 'true'); // Acessibilidade para leitores de ecrã
+            btnCategorias.setAttribute('aria-expanded', 'true'); // Acessibilidade para leitores de tela
         } else {
-            // Se já estiver aberto, esconde-o!
             listaCategorias.classList.add('escondido');
             listaCategorias.classList.remove('mostrar');
             btnCategorias.setAttribute('aria-expanded', 'false');
         }
     });
 
-    // 3. Ação para fechar o balãozinho quando o utilizador clica fora dele
+    // Ação para fechar o balãozinho quando o usuário clica fora da área do menu
     document.addEventListener('click', function(evento) {
-        // Verifica se o clique ocorreu FORA do botão 'Categorias' e FORA do balãozinho
         if (!btnCategorias.contains(evento.target) && !listaCategorias.contains(evento.target)) {
-            // Se o utilizador clicou fora, escondemos o balãozinho por segurança
             listaCategorias.classList.add('escondido');
             listaCategorias.classList.remove('mostrar');
             btnCategorias.setAttribute('aria-expanded', 'false');
         }
+    });
+})();
+
+/* =======================================================================
+ * MENU SANDUÍCHE LATERAL (OFF-CANVAS) - ATUALIZADO
+ * ======================================================================= */
+
+document.addEventListener('DOMContentLoaded', function () {
+    const btnMenu = document.getElementById('btn-menu-mobile');
+    const menu = document.getElementById('menu-colapsavel');
+    const btnFechar = document.getElementById('btn-fechar-menu');
+    const overlay = document.getElementById('overlay-menu');
+
+    if (!btnMenu || !menu) return;
+
+    function abrirMenu() {
+        menu.classList.add('aberto');
+        if (overlay) overlay.classList.add('ativo');
+        document.documentElement.style.overflow = 'hidden';
+        document.body.style.overflow = 'hidden';
+        document.body.style.overscrollBehavior = 'none';
+        btnMenu.setAttribute('aria-expanded', 'true');
+    }
+
+    function fecharMenu() {
+        menu.classList.remove('aberto');
+        if (overlay) overlay.classList.remove('ativo');
+        document.documentElement.style.overflow = '';
+        document.body.style.overflow = '';
+        document.body.style.overscrollBehavior = '';
+        btnMenu.setAttribute('aria-expanded', 'false');
+    }
+
+    btnMenu.addEventListener('click', abrirMenu);
+    if (btnFechar) btnFechar.addEventListener('click', fecharMenu);
+    if (overlay) overlay.addEventListener('click', fecharMenu);
+
+    // Fecha ao tocar em um link real (não no "Categorias", que só abre o dropdown)
+    menu.addEventListener('click', function (e) {
+        const link = e.target.closest('a');
+        if (link && link.id !== 'btn-categorias') fecharMenu();
+    });
+
+    document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') fecharMenu();
+    });
+
+    // Se virar desktop com o menu aberto, destrava a página
+    window.addEventListener('resize', function () {
+        if (window.innerWidth > 900) fecharMenu();
+    });
+});
+
+/* =======================================================================
+ * CARROSSEL CONTÍNUO - SEÇÃO DE PROFISSÕES
+ * ======================================================================= */
+// As fotos correm da direita para a esquerda em loop infinito (a animação
+// em si é CSS). O JS só: duplica as fotos para o loop não ter buracos,
+// calcula a largura de uma volta e a velocidade, e cria o botão de pausa.
+(function () {
+    const VELOCIDADE_PX_POR_SEGUNDO = 40;
+
+    const carrossel = document.getElementById('carrossel-profissoes');
+    if (!carrossel) return;
+
+    const galeria = carrossel.querySelector('.profissoes-galeria');
+    const originais = Array.from(galeria.querySelectorAll('.galeria-item'));
+    if (originais.length === 0) return;
+
+    carrossel.setAttribute('role', 'region');
+    carrossel.setAttribute('aria-roledescription', 'carrossel');
+    carrossel.setAttribute('aria-label', 'Profissões em destaque');
+
+    const clones = [];
+
+    function montar() {
+        clones.forEach(c => c.remove());
+        clones.length = 0;
+
+        // Largura de um conjunto = posição do fim da última foto original
+        const ultima = originais[originais.length - 1];
+        const larguraSet = ultima.offsetLeft + ultima.offsetWidth +
+            parseFloat(getComputedStyle(ultima).marginRight);
+
+        // Copias suficientes para cobrir a tela + 1 conjunto (loop sem falhas)
+        const copias = Math.ceil(window.innerWidth / larguraSet) + 1;
+        for (let i = 0; i < copias; i++) {
+            originais.forEach(item => {
+                const clone = item.cloneNode(true);
+                clone.setAttribute('aria-hidden', 'true');
+                clone.querySelector('img')?.setAttribute('alt', '');
+                galeria.appendChild(clone);
+                clones.push(clone);
+            });
+        }
+
+        galeria.style.setProperty('--largura-set', larguraSet + 'px');
+        galeria.style.setProperty('--duracao', (larguraSet / VELOCIDADE_PX_POR_SEGUNDO) + 's');
+    }
+
+    // Botão de pausa/retomada
+    const botao = document.createElement('button');
+    botao.type = 'button';
+    botao.className = 'carrossel-pausa-profissoes';
+    botao.textContent = 'Pausar fotos';
+    botao.setAttribute('aria-pressed', 'false');
+    carrossel.insertAdjacentElement('afterend', botao);
+
+    botao.addEventListener('click', () => {
+        const pausado = carrossel.classList.toggle('pausado');
+        botao.textContent = pausado ? 'Retomar fotos' : 'Pausar fotos';
+        botao.setAttribute('aria-pressed', String(pausado));
+    });
+
+    // Espera as imagens carregarem para medir certo, e remonta ao redimensionar
+    window.addEventListener('load', montar);
+    montar();
+
+    let timer;
+    window.addEventListener('resize', () => {
+        clearTimeout(timer);
+        timer = setTimeout(montar, 200);
     });
 })();

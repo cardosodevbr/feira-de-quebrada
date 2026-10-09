@@ -15,7 +15,7 @@ botaoEmpreendedor.addEventListener("click", function() {
     botaoCliente.classList.remove("ativo");
     botaoEmpreendedor.classList.add("ativo");
 
-    imagemCadastro.src = "empreendedor.png";
+    imagemCadastro.src = "imagens/empreendedor.jpg";
 });
 
 botaoCliente.addEventListener("click", function() {
@@ -26,5 +26,5 @@ botaoCliente.addEventListener("click", function() {
     botaoCliente.classList.add("ativo");
     botaoEmpreendedor.classList.remove("ativo");
 
-    imagemCadastro.src = "trancista.png";
+    imagemCadastro.src = "imagens/trancista.png";
 });
