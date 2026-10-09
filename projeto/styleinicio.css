@@ -944,7 +944,7 @@ header.cabecalho-principal form[role="search"] button {
     display: flex;
     align-items: center;
     justify-content: center;
-    background-image: url('../imagens/bandeirinhas.jpg');
+    background-image: url('imagens/bandeirinhas.jpg');
     background-size: cover;
     background-position: center;
     overflow: hidden;
