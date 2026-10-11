@@ -10,8 +10,8 @@
 html, body {
     width: 100%;
     height: 100%;
-    height: 100dvh; /* Dynamic viewport height: ignora a barra do navegador móvel */
-    overflow: hidden; /* Elimina qualquer rolagem horizontal ou vertical */
+    height: 100dvh;
+    overflow: hidden;
     font-family: 'DM Sans', Arial, sans-serif;
 }
 
@@ -59,6 +59,33 @@ html, body {
     background-color: #ffe3b8;
     border-radius: 10px;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    position: relative; 
+}
+
+/* =========================
+   BOTÃO FECHAR (X)
+========================= */
+.btn-fechar {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    font-size: 18px;
+    font-weight: bold;
+    color: #333;
+    text-decoration: none;
+    background-color: rgba(0, 0, 0, 0.05);
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.btn-fechar:hover {
+    background-color: rgba(220, 38, 38, 0.2);
+    color: #dc2626;
 }
 
 /* =========================

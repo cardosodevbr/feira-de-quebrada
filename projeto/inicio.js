@@ -1,4 +1,56 @@
 /* =======================================================================
+ * CONTROLE DE AUTENTICAÇÃO E PERFIS NO CABEÇALHO (FIREBASE)
+ * ======================================================================= */
+import { auth, db } from "./firebase-config.js";
+import { onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { ref, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+document.addEventListener("DOMContentLoaded", () => {
+    const containerAuth = document.getElementById('containerAuth');
+    if (!containerAuth) return;
+
+    onAuthStateChanged(auth, async (user) => {
+        if (user) {
+            let temComercio = false;
+            try {
+                const snap = await get(ref(db, `Comercio/${user.uid}/dadosNegocio`));
+                if (snap.exists()) {
+                    temComercio = true;
+                }
+            } catch (err) {
+                console.warn("Erro ao verificar comércio:", err);
+            }
+
+            // Limpa os botões de login e cadastro originais
+            containerAuth.innerHTML = '';
+
+            if (temComercio) {
+                // Apenas para o Utilizador Empreendedor
+                const btnPainel = document.createElement('a');
+                btnPainel.href = "painel.html";
+                btnPainel.className = "btn-link";
+                btnPainel.textContent = "🏪 Meu Painel";
+                containerAuth.appendChild(btnPainel);
+            } else {
+                // Apenas para o Utilizador Normal
+                const btnConfig = document.createElement('a');
+                btnConfig.href = "conf-usuario.html"; 
+                btnConfig.className = "btn-link";
+                btnConfig.textContent = "⚙️ Configurações";
+                containerAuth.appendChild(btnConfig);
+            }
+
+        } else {
+            // Se deslogado, mantém os botões originais
+            containerAuth.innerHTML = `
+                <a href="cadastro.html" class="btn-link">Cadastro</a>
+                <a href="login.html" class="btn-link">Login</a>
+            `;
+        }
+    });
+});
+
+/* =======================================================================
  * CARROSSEL DO HERO (DESTAQUES)
  * ======================================================================= */
 // Alterna os slides automaticamente, expõe controle de pausa/retomada ao usuário,

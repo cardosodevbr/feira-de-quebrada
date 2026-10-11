@@ -8,8 +8,6 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,400;0,9..40,500;0,9..40,700;1,9..40,400&display=swap" rel="stylesheet">
-
-    <!-- CSS -->
     <link rel="stylesheet" href="login.css">
 </head>
 
@@ -17,23 +15,22 @@
 
     <div class="login-page">
 
-        <!-- Foto lateral -->
         <div class="login-image">
             <img src="imagens/motoboy.jpg" alt="" class="imagem-lateral">
         </div>
 
-        <!-- Área de login -->
         <div class="login-side">
             <div class="login-container">
 
-                <!-- Logo com link para voltar ao Início -->
+                <!-- Botão X para fechar e voltar ao início -->
+                <a href="inicio.html" class="btn-fechar" title="Voltar ao início">✕</a>
+
                 <a href="inicio.html">
                     <img src="imagens/logo.png" class="logo" alt="Feira da Quebrada">
                 </a>
 
                 <h1>Acesse sua conta</h1>
 
-                <!-- FORMULÁRIO DE LOGIN -->
                 <form id="form-login">
                     
                     <label for="email">E-mail:</label>
@@ -70,7 +67,6 @@
 
     </div>
 
-    <!-- Script de autenticação apontando para a pasta scripts/ -->
     <script type="module" src="login.js"></script>
 </body>
 </html>

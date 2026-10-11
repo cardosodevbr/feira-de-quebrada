@@ -1,102 +1,53 @@
 import { auth, db } from "./firebase-config.js";
-import { createUserWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
-import { doc, setDoc } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-firestore.js";
+import { signInWithEmailAndPassword } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+import { ref, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-const botaoCliente = document.getElementById("btn-cliente");
-const botaoEmpreendedor = document.getElementById("btn-empreendedor");
-const imagemCadastro = document.getElementById("imagem-cadastro");
-const labelNome = document.getElementById("label-nome");
-const camposEmpreendedor = document.getElementById("campos-empreendedor");
+const formLogin = document.getElementById("form-login");
 
-const inputNomeNegocio = document.getElementById("nome-negocio");
-const inputDocumento = document.getElementById("documento");
+if (formLogin) {
+    formLogin.addEventListener("submit", async (e) => {
+        e.preventDefault();
 
-let tipoContaSelecionado = "Cliente";
+        const emailInput = document.getElementById("email");
+        const senhaInput = document.getElementById("senha");
 
-// Alternar para Empreendedor
-botaoEmpreendedor.addEventListener("click", () => {
-    tipoContaSelecionado = "Empreendedor";
-    
-    botaoCliente.classList.remove("ativo");
-    botaoEmpreendedor.classList.add("ativo");
-    
-    labelNome.textContent = "Nome do Titular:";
-    imagemCadastro.src = "../imagens/capa2.jpg";
-    
-    // Revela os campos e torna-os obrigatórios
-    camposEmpreendedor.classList.remove("escondido");
-    inputNomeNegocio.required = true;
-    inputDocumento.required = true;
-});
+        if (!emailInput || !senhaInput) return;
 
-// Alternar para Cliente
-botaoCliente.addEventListener("click", () => {
-    tipoContaSelecionado = "Cliente";
-    
-    botaoCliente.classList.add("ativo");
-    botaoEmpreendedor.classList.remove("ativo");
-    
-    labelNome.textContent = "Nome Completo:";
-    imagemCadastro.src = "../imagens/trancista.jpg";
-    
-    // Oculta os campos e remove a obrigatoriedade
-    camposEmpreendedor.classList.add("escondido");
-    inputNomeNegocio.required = false;
-    inputDocumento.required = false;
-});
+        const email = emailInput.value.trim();
+        const senha = senhaInput.value;
 
-// Envio e Processamento do Cadastro
-const formCadastro = document.getElementById("form-cadastro");
+        try {
+            const userCredential = await signInWithEmailAndPassword(auth, email, senha);
+            const user = userCredential.user;
 
-formCadastro.addEventListener("submit", async (e) => {
-    e.preventDefault();
+            let temComercio = false;
+            try {
+                const timeoutPromise = new Promise((_, reject) => 
+                    setTimeout(() => reject(new Error("Timeout")), 2500)
+                );
+                const dbPromise = get(ref(db, `Comercio/${user.uid}/dadosNegocio`));
+                const snap = await Promise.race([dbPromise, timeoutPromise]);
 
-    const nome = document.getElementById("name").value.trim();
-    const email = document.getElementById("email").value.trim();
-    const senha = document.getElementById("password").value;
-    const palavraSeguranca = document.getElementById("palavra-seguranca").value.trim();
+                if (snap.exists()) {
+                    temComercio = true;
+                }
+            } catch (err) {
+                console.warn("Verificação de comércio ignorada/demorou:", err.message);
+            }
 
-    try {
-        // 1. Cria a conta no Firebase Authentication
-        const userCredential = await createUserWithEmailAndPassword(auth, email, senha);
-        const user = userCredential.user;
+            if (temComercio) {
+                window.location.href = "painel.html";
+            } else {
+                window.location.href = "inicio.html";
+            }
 
-        // 2. Prepara a estrutura do documento do utilizador
-        const dadosUsuario = {
-            uid: user.uid,
-            nome: nome,
-            email: email,
-            tipoConta: tipoContaSelecionado,
-            palavraSeguranca: palavraSeguranca,
-            dataCadastro: new Date().toISOString()
-        };
-
-        // 3. Adiciona os campos específicos de Empreendedor se aplicável
-        if (tipoContaSelecionado === "Empreendedor") {
-            dadosUsuario.nomeEmpreendimento = inputNomeNegocio.value.trim();
-            dadosUsuario.documento = inputDocumento.value.trim();
+        } catch (error) {
+            console.error("Erro no login:", error);
+            if (error.code === 'auth/invalid-credential' || error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
+                alert("E-mail ou senha incorretos.");
+            } else {
+                alert("Ocorreu um erro ao entrar. Tente novamente.");
+            }
         }
-
-        // 4. Grava na coleção 'usuarios' do Firestore
-        await setDoc(doc(db, "usuarios", user.uid), dadosUsuario);
-
-        alert("Conta criada com sucesso!");
-
-        // 5. Encaminhamento baseado no tipo de perfil
-        if (tipoContaSelecionado === "Empreendedor") {
-            window.location.href = "painel.html";
-        } else {
-            window.location.href = "../index.html";
-        }
-
-    } catch (error) {
-        console.error("Erro no cadastro:", error);
-        if (error.code === "auth/email-already-in-use") {
-            alert("Este e-mail já está associado a uma conta existente.");
-        } else if (error.code === "auth/weak-password") {
-            alert("A senha deve ter pelo menos 6 caracteres.");
-        } else {
-            alert("Ocorreu um erro ao registar a conta. Verifique os dados inseridos.");
-        }
-    }
-});
+    });
+}
