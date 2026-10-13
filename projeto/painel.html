@@ -464,5 +464,40 @@
 
   <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script type="module" src="painel.js"></script>
+
+  
+<!-- ========================================== -->
+<!-- VLibras e UserWay  Acessibilidade          -->
+<!-- ========================================== -->
+
+<!-- VLibras -->
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+<!-- UserWay -->
+<script src="https://cdn.userway.org/widget.js" data-account="a1B2c3D4e5"></script>
+
+<!-- Aqui ajusta o CSS do UserWay para ficar em acima do VLibras -->
+<style>
+    .userway-widget-btn,
+    #userwayAccessibilityIcon,
+    body .uaw-widget-btn {
+        position: fixed !important;
+        right: 2px !important;
+        left: auto !important;
+        bottom: -230px !important; 
+        top: auto !important;
+        z-index: 999999 !important;
+    }
+    
+</style>
 </body>
 </html>
