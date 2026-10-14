@@ -1,97 +1,113 @@
-document.addEventListener('DOMContentLoaded', () => { 
+import { db } from "./firebase-config.js";
+import { ref, get } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+
+document.addEventListener('DOMContentLoaded', async () => { 
     const listaEmpreendedoresEl = document.getElementById('listaEmpreendedores'); 
     let mapaInstancia = null; 
+    let empreendedores = [];
 
-    const empreendedores = [ 
-        {
-            nome: "Corte & Estilo - Barbearia", 
-            categoria: "Beleza", 
-            bairro: "Capão Redondo", 
-            logo: "https://images.pexels.com/photos/4952618/pexels-photo-4952618.jpeg", 
-            lat: -23.6581, 
-            lng: -46.7744, 
-            linkWhats: "https://wa.me/5511999999999" 
-        },
-        {
-            nome: "Mercadinho do Zé",
-            categoria: "Mercado",
-            bairro: "Capão Redondo",
-            logo: "https://images.pexels.com/photos/19138180/pexels-photo-19138180.jpeg",
-            lat: -23.6581, 
-            lng: -46.7744,
-            linkWhats: "https://wa.me/5511977777777"
-        },
-        {
-            nome: "CT-ad Tatuagem",
-            categoria: "Estúdio",
-            bairro: "São Miguel Paulista",
-            logo: "https://images.pexels.com/photos/12038948/pexels-photo-12038948.jpeg",
-            lat: -23.4941, 
-            lng: -46.4213,
-            linkWhats: "https://wa.me/5511977777777"
-        },
-        {
-            nome: "Sabor da Quebrada - Doces",
-            categoria: "Alimentação",
-            bairro: "Campo Limpo",
-            logo: "https://images.pexels.com/photos/31267002/pexels-photo-31267002.jpeg",
-            lat: -23.6489, 
-            lng: -46.7582,
-            linkWhats: "https://wa.me/5511988888888"
-        },
-        {
-            nome: "EletroFix - Manutenção",
-            categoria: "Serviços",
-            bairro: "Jardim Ângela",
-            logo: "https://images.pexels.com/photos/1597776/pexels-photo-1597776.jpeg",
-            lat: -23.6750, 
-            lng: -46.7800,
-            linkWhats: "https://wa.me/5511977777777"
+    async function carregarEmpreendedoresDoBanco() {
+        try {
+            const snapshot = await get(ref(db, 'Comercio'));
+            if (snapshot.exists()) {
+                const dadosComercios = snapshot.val();
+                empreendedores = [];
+
+                Object.keys(dadosComercios).forEach(uid => {
+                    const comercio = dadosComercios[uid];
+                    
+                    // Procura as coordenadas dentro de dadosNegocio ou diretamente na raiz do comércio
+                    let lat = null;
+                    let lng = null;
+                    let nome = "Comércio sem nome";
+                    let categoria = "Geral";
+                    let bairro = "Região";
+                    let whatsapp = "";
+
+                    if (comercio.dadosNegocio) {
+                        lat = comercio.dadosNegocio.lat;
+                        lng = comercio.dadosNegocio.lng;
+                        nome = comercio.dadosNegocio.nome || nome;
+                        categoria = comercio.dadosNegocio.categoria || categoria;
+                        bairro = comercio.dadosNegocio.bairro || bairro;
+                        whatsapp = comercio.dadosNegocio.whatsapp || "";
+                    } else {
+                        lat = comercio.lat;
+                        lng = comercio.lng;
+                        nome = comercio.nomeComercio || comercio.nomeEmpreendedor || nome;
+                        categoria = comercio.categoria || categoria;
+                        bairro = comercio.bairro || bairro;
+                        whatsapp = comercio.whatsapp || comercio["e-mail"] || "";
+                    }
+
+                    if (lat && lng) {
+                        empreendedores.push({
+                            id: uid,
+                            nome: nome,
+                            categoria: categoria,
+                            bairro: bairro,
+                            logo: comercio.logo || "https://via.placeholder.com/40",
+                            lat: parseFloat(lat),
+                            lng: parseFloat(lng),
+                            linkWhats: whatsapp ? `https://wa.me/55${whatsapp.replace(/\D/g, '')}` : "#"
+                        });
+                    }
+                });
+            }
+        } catch (err) {
+            console.error("Erro ao ler Firebase:", err);
         }
-    ];
+    }
 
     function renderizarListaLateral() { 
-    if (!listaEmpreendedoresEl) return; 
-    listaEmpreendedoresEl.innerHTML = ''; 
+        if (!listaEmpreendedoresEl) return; 
+        listaEmpreendedoresEl.innerHTML = ''; 
 
-    empreendedores.forEach(emp => { 
-        const card = document.createElement('div'); 
-        card.className = 'card-empreendedor'; 
+        if (empreendedores.length === 0) {
+            listaEmpreendedoresEl.innerHTML = '<p style="padding: 15px; font-size: 13px; color: #666;">Nenhum empreendedor cadastrado nesta área ainda.</p>';
+            return;
+        }
 
-        const badgeDistancia = emp.distanciaKm 
-            ? `<span class="badge-distancia">📏 a ${emp.distanciaKm} km</span>` 
-            : '';
+        empreendedores.forEach(emp => { 
+            const card = document.createElement('div'); 
+            card.className = 'card-empreendedor'; 
 
-        card.innerHTML = `
-            <div class="card-header-estab">
-                <img src="${emp.logo}" class="logo-estab-img" alt="Logo ${emp.nome}" onerror="this.src='https://via.placeholder.com/40';">
-                <div class="estab-info-titulo">
-                    <h5>${emp.nome}</h5>
-                    ${badgeDistancia}
+            const badgeDistancia = emp.distanciaKm 
+                ? `<span class="badge-distancia">📏 a ${emp.distanciaKm} km</span>` 
+                : '';
+
+            card.innerHTML = `
+                <div class="card-header-estab">
+                    <img src="${emp.logo}" class="logo-estab-img" alt="Logo ${emp.nome}" onerror="this.src='https://via.placeholder.com/40';">
+                    <div class="estab-info-titulo">
+                        <h5>${emp.nome}</h5>
+                        ${badgeDistancia}
+                    </div>
                 </div>
-            </div>
-            <p>📍 ${emp.bairro} • <i>${emp.categoria}</i></p>
-            <a href="${emp.linkWhats}" target="_blank" class="btn-whats" onclick="event.stopPropagation();">Chamar no WhatsApp</a>
-        `; 
+                <p>📍 ${emp.bairro} • <i>${emp.categoria}</i></p>
+                <a href="${emp.linkWhats}" target="_blank" class="btn-whats" onclick="event.stopPropagation();">Chamar no WhatsApp</a>
+            `; 
 
-        card.addEventListener('click', () => { 
-            if (mapaInstancia) {
-                mapaInstancia.setView([emp.lat, emp.lng], 15); 
-            }
+            card.addEventListener('click', () => { 
+                if (mapaInstancia) {
+                    mapaInstancia.setView([emp.lat, emp.lng], 16); 
+                }
+            });
+
+            listaEmpreendedoresEl.appendChild(card); 
         });
+    }
 
-        listaEmpreendedoresEl.appendChild(card); 
-    });
-}
-
-    function inicializarMapa() { 
+    async function inicializarMapa() { 
         const mapaDiv = document.getElementById('mapa');
         if (!mapaDiv) return;
+
+        await carregarEmpreendedoresDoBanco();
 
         mapaInstancia = L.map('mapa').setView([-23.65, -46.75], 13); 
 
         L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { 
-            attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' 
+            attribution: '&copy; OpenStreetMap' 
         }).addTo(mapaInstancia); 
 
         const gruposPorBairro = {}; 
@@ -132,7 +148,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 htmlConteudo += `
                     <div style="text-align:left; margin-bottom: 10px; padding-bottom: 8px; ${index < qtd - 1 ? 'border-bottom: 1px dashed #ddd;' : ''}">
                         <div style="display:flex; align-items:center; gap:8px; margin-bottom:4px;">
-                            <img src="${item.logo}" style="width:24px; height:24px; border-radius:50%; object-fit:cover; border:1px solid #ccc;">
+                            <img src="${item.logo}" style="width:24px; height:24px; border-radius:50%; object-fit:cover; border:1px solid #ccc;" onerror="this.src='https://via.placeholder.com/24';">
                             <strong style="color:#111; font-size:13px;">${item.nome}</strong>
                         </div>
                         <small style="color:#666;">Categoria: ${item.categoria}</small><br>
@@ -161,7 +177,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         color: '#1e88e5', 
                         fillColor: '#2196f3', 
                         fillOpacity: 0.2, 
-                        radius: 100 
+                        radius: 300 
                     }).addTo(mapaInstancia); 
 
                     const pontoUsuario = L.latLng(lat, lng); 
@@ -175,11 +191,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 (err) => console.warn("Geolocalização indisponível:", err.message), 
                 { enableHighAccuracy: true, timeout: 10000 } 
             );
+        } else {
+            renderizarListaLateral();
         }
 
         setTimeout(() => mapaInstancia.invalidateSize(), 300); 
     }
 
     inicializarMapa(); 
-    renderizarListaLateral(); 
 });

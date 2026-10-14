@@ -31,14 +31,14 @@
     <link rel="stylesheet" href="styleinicio.css">
     <link rel="stylesheet" href="chat.css">
     <link rel="stylesheet" href="mapa.css">
-    
 
     <!-- ========================================== -->
     <!-- SCRIPTS (JS)                               -->
     <!-- ========================================== -->
     <script src="chat.js" defer></script>
     <script src="mapa.js" defer></script>
-    <script src="inicio.js" defer></script>
+    <!-- O script principal da página inicial deve ser carregado como módulo para rodar o Firebase -->
+    <script type="module" src="inicio.js" defer></script>
 </head>
 <body>
 
@@ -92,7 +92,8 @@
                 </form>
             </search>
 
-            <nav class="auth-acoes" aria-label="Acesso à conta">
+            <!-- CONTÊINER DE AUTENTICAÇÃO COM O ID CORRETO -->
+            <nav class="auth-acoes" aria-label="Acesso à conta" id="containerAuth">
                 <a href="cadastro.html" class="btn-link">Cadastro</a>
                 <a href="login.html" class="btn-link">Login</a>
             </nav>
@@ -129,14 +130,13 @@
                 </p>
 
                 <div class="hero-botoes">
-                    <!-- Links atualizados para a pasta  -->
                     <a href="anunciar.html" class="btn-primario">Comece agora</a>
                     <a href="contato.html" class="btn-secundario">Conheça o projeto</a>
                 </div>
             </div>
         </section>
 
-        <!-- Seção 2: Galeria de Profissões (Carrossel contínuo) -->
+        <!-- Seção 2: Galeria de Profissões -->
         <section class="secao-profissoes" aria-labelledby="titulo-profissoes">
             <div class="profissoes-container">
                 <header class="profissoes-cabecalho">
@@ -150,7 +150,6 @@
                 </header>
             </div>
 
-            <!-- Faixa de fotos que roda sozinha (o JS duplica os itens para o loop infinito) -->
             <div class="profissoes-carrossel" id="carrossel-profissoes">
                 <ul class="profissoes-galeria" role="list">
                     <li class="galeria-item">
@@ -185,8 +184,18 @@
                     <p>Navegue pelos estabelecimentos mais buscados da nossa plataforma.</p>
                 </header>
                 <ul class="categorias-lista" role="list">
+<<<<<<< HEAD
                     <!-- Links atualizados para a pasta  e ícones para a pasta icones/ -->
 
+=======
+                    <li class="categoria-card">
+                        <a href="filtro.html?categoria=manicure">
+                            <img src="icones/iconemanicure.png" alt="" aria-hidden="true" width="48" height="48">
+                            <h3>Manicure</h3>
+                            <span>Explorar agora</span>
+                        </a>
+                    </li>
+>>>>>>> 1ba7a112fd48320b03069aa2e299eeb74c9e689e
                     <li class="categoria-card">
                         <a href="filtro.html?categoria=beleza">
                             <img src="icones/iconebeleza.png" alt="" aria-hidden="true" width="48" height="48">
@@ -249,7 +258,7 @@
             </div>
         </section>
 
-         <!-- Seção 5: Dados Estatísticos -->
+        <!-- Seção 5: Dados Estatísticos -->
         <div class="container-dados">
             <section class="dados">
                 <div class="contas">
@@ -283,48 +292,45 @@
             </section>
         </div>
 
-<!-- Seção 6: Depoimentos (Quem vive, recomenda) -->
-<section class="coment">
-    <div class="headerdepoimentos">
-        <h2>Quem vive, recomenda</h2>
-        <p>Histórias reais de quem já passou por aqui.</p>
-    </div>
-
-    <div class="card-container">
-        <!--Coment1-->
-        <article class="card">
-            <div class="avatar-container">
-                <img src="imagens/tatuadorcoment.png" alt="Tatuador" class="avatar">
+        <!-- Seção 6: Depoimentos -->
+        <section class="coment">
+            <div class="headerdepoimentos">
+                <h2>Quem vive, recomenda</h2>
+                <p>Histórias reais de quem já passou por aqui.</p>
             </div>
-            <blockquote class="quote">
-                "A Feira da Quebrada me ajudou a mostrar meu trabalho para pessoas que ainda não conheciam meu estúdio. É muito bom ter um espaço para divulgar meu trabalho e fazer meu negócio chegar mais longe."
-            </blockquote>
-            <p class="autor"> Marcel Souza, Tatuador</p>
-        </article>
 
-        <!--Coment2-->
-        <article class="card">
-            <div class="avatar-container">
-                <img src="imagens/costureiracoment.png" alt="Costureira" class="avatar">
-            </div>
-            <blockquote class="quote">
-                "Trabalho com costura há muitos anos e sempre achei difícil divulgar meus serviços pela internet. Com a Feira da Quebrada, ficou mais fácil mostrar o que faço e ser encontrada por pessoas da minha região."
-            </blockquote>
-            <p class="autor"> Silvana Gonçalves, Costureira</p>
-        </article>
+            <div class="card-container">
+                <article class="card">
+                    <div class="avatar-container">
+                        <img src="imagens/tatuadorcoment.png" alt="Tatuador" class="avatar">
+                    </div>
+                    <blockquote class="quote">
+                        "A Feira da Quebrada me ajudou a mostrar meu trabalho para pessoas que ainda não conheciam meu estúdio. É muito bom ter um espaço para divulgar meu trabalho e fazer meu negócio chegar mais longe."
+                    </blockquote>
+                    <p class="autor"> Marcel Souza, Tatuador</p>
+                </article>
 
-        <!--Coment3-->
-        <article class="card">
-            <div class="avatar-container">
-                <img src="imagens/cabeleireiracoment.png" alt="Cabeleireira" class="avatar">
+                <article class="card">
+                    <div class="avatar-container">
+                        <img src="imagens/costureiracoment.png" alt="Costureira" class="avatar">
+                    </div>
+                    <blockquote class="quote">
+                        "Trabalho com costura há muitos anos e sempre achei difícil divulgar meus serviços pela internet. Com a Feira da Quebrada, ficou mais fácil mostrar o que faço e ser encontrada por pessoas da minha região."
+                    </blockquote>
+                    <p class="autor"> Silvana Gonçalves, Costureira</p>
+                </article>
+
+                <article class="card">
+                    <div class="avatar-container">
+                        <img src="imagens/cabeleireiracoment.png" alt="Cabeleireira" class="avatar">
+                    </div>
+                    <blockquote class="quote">
+                        "Adorei poder colocar meu trabalho em um lugar onde as pessoas realmente procuram serviços da região. Já conheci clientes novos através da plataforma e também descobri outros negócios incríveis perto de mim."
+                    </blockquote>
+                    <p class="autor"> Thaina Silva, Cabeleireira</p>
+                </article>
             </div>
-            <blockquote class="quote">
-                "Adorei poder colocar meu trabalho em um lugar onde as pessoas realmente procuram serviços da região. Já conheci clientes novos através da plataforma e também descobri outros negócios incríveis perto de mim."
-            </blockquote>
-            <p class="autor"> Thaina Silva, Cabeleireira</p>
-        </article>
-    </div>
-</section>
+        </section>
 
         <!-- Seção 7: Mapa Interativo -->
         <section class="secao-mapa" aria-labelledby="titulo-mapa">
@@ -337,14 +343,13 @@
                 </div>
                 <h2 id="titulo-mapa">Mapa Interativo</h2>
                 <p>A integração com o mapa de estabelecimentos ficará aqui. Os usuários poderão arrastar, dar zoom e ver os estabelecimentos com seus respectivos pins e fotos.</p>
-                <!-- Link corrigido para a pasta  -->
                 <a href="mapa.html" class="btn-mapa">Explorar mapa</a>
             </div>
         </section>
 
     </main>
 
-<!-- ================= CHATBOT ================= -->
+    <!-- ================= CHATBOT ================= -->
 <div class="chat-wrapper" id="chatWrapper">
   
   <div class="widget hidden" id="chatWidget">
@@ -388,11 +393,9 @@
 </button>
 
 </div>
-
-    <!-- Rodapé: identidade da marca, redes sociais e informações legais -->
+    <!-- Rodapé -->
     <footer class="rodape-principal">
         <div class="rodape-container">
-
             <div class="rodape-marca">
                 <a href="inicio.html" class="rodape-logo-link">
                     <img src="imagens/logo.png" alt="Feira de Quebrada" width="140" height="auto">
@@ -417,7 +420,6 @@
                     </ul>
                 </nav>
             </div>
-
         </div>
 
         <div class="rodape-copyright">
@@ -427,5 +429,39 @@
         </div>
     </footer>
 
+
+<!-- ========================================== -->
+<!-- VLibras e UserWay  Acessibilidade          -->
+<!-- ========================================== -->
+
+<!-- VLibras -->
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+<!-- UserWay -->
+<script src="https://cdn.userway.org/widget.js" data-account="a1B2c3D4e5"></script>
+
+<!-- Aqui ajusta o CSS do UserWay para ficar em acima do VLibras -->
+<style>
+    .userway-widget-btn,
+    #userwayAccessibilityIcon,
+    body .uaw-widget-btn {
+        position: fixed !important;
+        right: 2px !important;
+        left: auto !important;
+        bottom: -230px !important; 
+        top: auto !important;
+        z-index: 999999 !important;
+    }
+    
+</style>
 </body>
 </html>

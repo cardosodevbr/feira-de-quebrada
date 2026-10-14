@@ -6,6 +6,7 @@
   <title>Painel Lojista - Feira da Quebrada</title>
   <link rel="stylesheet" href="painel.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
 </head>
 <body>
 
@@ -26,13 +27,14 @@
       <header class="top-bar">
         <div class="user-welcome">
           <span>Olá, bem-vindo(a)</span>
-          <h3 id="nomeLojista">Ateliê da Quebrada</h3>
+          <h3 id="nomeLojista">Meu Comércio</h3>
         </div>
         <div style="display: flex; gap: 10px;">
           <button class="btn-sair" onclick="window.location.href='inicio.html'">Voltar ao Site</button>
           <button class="btn-sair btn-logout" id="btnSairConta">🚪 Sair da Conta</button>
         </div>
       </header>
+
       <section id="aba-dashboard" class="aba-conteudo active">
         <div class="cards-grid">
           <div class="card-stat">
@@ -63,7 +65,9 @@
           <button class="sub-btn active" data-sub="dados">Dados do Comércio</button>
           <button class="sub-btn" data-sub="galeria">Galeria & Logo</button>
           <button class="sub-btn" data-sub="horarios">Horário de Funcionamento</button>
-          <button class="sub-btn" data-sub="avaliacoes">Avaliações</button>
+        <!-- Avaliação deixar desativado por enquanto!  
+          <button class="sub-btn" data-sub="avaliacoes">Avaliações</button> 
+        -->
         </div>
 
         <div id="sub-dados" class="sub-aba-conteudo active">
@@ -72,10 +76,15 @@
             <form id="formDadosNegocio">
               <div class="form-group">
                 <label for="inputNomeComercio">Nome do Comércio *</label>
-                <input type="text" id="inputNomeComercio" value="Ateliê da Quebrada" required>
+                <input type="text" id="inputNomeComercio" placeholder="Digite o nome do seu negócio" required>
               </div>
 
               <div class="form-group-row">
+                <div class="form-group" style="flex: 1;">
+                  <label for="inputCepComercio">CEP do Comércio *</label>
+                  <input type="text" id="inputCepComercio" placeholder="00000-000" maxlength="9" required>
+                </div>
+
                 <div class="form-group" style="flex: 1;">
                   <label for="inputBairroComercio">Bairro (Vitrine) *</label>
                   <input type="text" id="inputBairroComercio" placeholder="Ex: Capão Redondo" required>
@@ -90,6 +99,24 @@
               <div class="form-group">
                 <label for="inputInstagramComercio">Instagram (@ do negócio ou empreendedor)</label>
                 <input type="text" id="inputInstagramComercio" placeholder="@meunegocioouperfil">
+              </div>
+
+              <!-- MINI-MAPA DE AJUSTE MANUAL EXPANSÍVEL -->
+              <div class="form-group" style="margin-top: 15px;">
+                <button type="button" id="btnToggleMapaManual" class="btn-secondary" style="width: 100%; margin-bottom: 10px; display: flex; justify-content: space-between; align-items: center; cursor: pointer;">
+                  <span>📍 Ajustar localização manualmente no mapa</span>
+                  <span id="setaMapa">▼</span>
+                </button>
+
+                <div id="containerMiniMapa" class="hidden" style="transition: all 0.3s ease;">
+                  <p class="sub-titulo" style="font-size: 12px; margin-bottom: 8px;">
+                    O sistema busca a posição pelo CEP. Se quiser refinar ou indicar o ponto exato no seu bairro, clique ou arraste o marcador abaixo:
+                  </p>
+                  <div id="miniMapaSeletor" style="height: 220px; width: 100%; border-radius: 8px; border: 1px solid #ccc; background: #e5e3df;"></div>
+                </div>
+
+                <input type="hidden" id="inputLatManual">
+                <input type="hidden" id="inputLngManual">
               </div>
 
               <div class="form-group">
@@ -125,7 +152,7 @@
 
               <div class="form-group">
                 <label for="textDescricao">Descrição do Negócio</label>
-                <textarea id="textDescricao" rows="3">Roupas e acessórios feitos à mão na periferia.</textarea>
+                <textarea id="textDescricao" rows="3" placeholder="Escreva uma breve descrição sobre seus produtos ou serviços..."></textarea>
               </div>
 
               <div class="form-group">
@@ -218,6 +245,7 @@
           </div>
         </div>
 
+        <!--
         <div id="sub-avaliacoes" class="sub-aba-conteudo">
           <div class="card-box">
             <h3>Avaliações dos Clientes</h3>
@@ -245,8 +273,8 @@
             </div>
           </div>
         </div>
+        -->
       </section>
-
 
       <section id="aba-vitrine" class="aba-conteudo">
         <div class="card-box">
@@ -267,8 +295,8 @@
             
             <div class="vitrine-body">
               <div class="vitrine-top">
-                <h2 id="vitrineNome">Ateliê da Quebrada</h2>
-                <span class="badge-categoria" id="vitrineCategoria">Artesanato</span>
+                <h2 id="vitrineNome">Nome do Negócio</h2>
+                <span class="badge-categoria" id="vitrineCategoria">Categoria</span>
               </div>
 
               <p class="vitrine-bairro" id="vitrineBairro" style="font-size: 12px; color: #777; margin-bottom: 4px;">📍 Bairro não informado</p>
@@ -277,7 +305,7 @@
                 📸 <a id="linkInstagramVitrine" href="#" target="_blank" style="color: inherit; text-decoration: none;">Instagram não informado</a>
               </p>
 
-              <p class="vitrine-descricao" id="vitrineDescricao">Roupas e acessórios feitos à mão na periferia.</p>
+              <p class="vitrine-descricao" id="vitrineDescricao">Nenhuma descrição informada ainda.</p>
 
               <div class="vitrine-galeria-secao">
                 <strong>📸 Fotos do Espaço / Produtos:</strong>
@@ -321,12 +349,12 @@
           <form id="formPerfil">
             <div class="form-group">
               <label for="inputNomeUser">Nome Completo</label>
-              <input type="text" id="inputNomeUser" value="Adrielly Rodrigues" required>
+              <input type="text" id="inputNomeUser" placeholder="Seu nome completo" required>
             </div>
 
             <div class="form-group">
               <label for="inputEmailUser">E-mail</label>
-              <input type="email" id="inputEmailUser" value="adrielly@email.com" required>
+              <input type="email" id="inputEmailUser" placeholder="seu@email.com" required>
             </div>
 
             <div class="form-group-row">
@@ -370,14 +398,19 @@
           </form>
         </div>
 
-        <div class="card-box card-danger-zone">
+       <div class="card-box card-danger-zone">
           <h3>Gerenciamento da Conta</h3>
           <p class="sub-titulo">Gerencie a visibilidade do seu anúncio na plataforma ou encerre sua conta definitivamente.</p>
           
           <div class="conta-acoes-grid">
             <div class="status-conta-box">
-              <span>Status Atual do Anúncio: <strong id="lblStatusConta" class="status-ativo">Ativo</strong></span>
-              <button type="button" class="btn-warning" id="btnToggleStatusConta">Desativar Anúncio / Conta</button>
+              <div style="flex: 1;">
+                <span>Status Atual do Anúncio: <strong id="lblStatusConta" class="status-ativo">Ativo</strong></span>
+                <p class="sub-titulo" style="font-size: 11.5px; margin-top: 4px; color: #666;">
+                  * Ao solicitar a desativação, a conta e a vitrine serão inativadas em **até 24 horas**.
+                </p>
+              </div>
+              <button type="button" class="btn-warning" id="btnToggleStatusConta">Desativar Conta (até 24h)</button>
             </div>
             
             <hr class="divisor-form">
@@ -429,6 +462,42 @@
     </div>
   </div>
 
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
   <script type="module" src="painel.js"></script>
+
+  
+<!-- ========================================== -->
+<!-- VLibras e UserWay  Acessibilidade          -->
+<!-- ========================================== -->
+
+<!-- VLibras -->
+<div vw class="enabled">
+    <div vw-access-button class="active"></div>
+    <div vw-plugin-wrapper>
+        <div class="vw-plugin-top-wrapper"></div>
+    </div>
+</div>
+<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+<script>
+    new window.VLibras.Widget('https://vlibras.gov.br/app');
+</script>
+
+<!-- UserWay -->
+<script src="https://cdn.userway.org/widget.js" data-account="a1B2c3D4e5"></script>
+
+<!-- Aqui ajusta o CSS do UserWay para ficar em acima do VLibras -->
+<style>
+    .userway-widget-btn,
+    #userwayAccessibilityIcon,
+    body .uaw-widget-btn {
+        position: fixed !important;
+        right: 2px !important;
+        left: auto !important;
+        bottom: -230px !important; 
+        top: auto !important;
+        z-index: 999999 !important;
+    }
+    
+</style>
 </body>
 </html>

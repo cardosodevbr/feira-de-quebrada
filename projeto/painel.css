@@ -108,6 +108,7 @@ body {
 .aba-conteudo.active, .sub-aba-conteudo.active {
   display: block;
 }
+
 .cards-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -211,6 +212,7 @@ body {
 .form-group input[type="text"], 
 .form-group input[type="email"], 
 .form-group input[type="password"], 
+.form-group input[type="tel"],
 .form-group select, 
 .form-group textarea {
   padding: 10px 14px;
@@ -676,6 +678,7 @@ body {
   cursor: pointer;
   font-size: 12.5px;
 }
+
 .card-danger-zone {
   border: 1px solid #fed7aa;
 }
@@ -730,6 +733,10 @@ body {
 
 .delete-conta-box h4 {
   font-size: 15px;
-  color: #e53935;
+  color: #070707;
   margin-bottom: 4px;
+}
+
+.hidden {
+  display: none !important;
 }

@@ -19,11 +19,27 @@
       <hr class="divider">
 
       <nav class="sidebar-nav">
-        <button class="nav-btn active">
+        <button class="nav-btn active" id="btnTabPerfil">
           <i class="fa-solid fa-gear"></i>
           Configurações
         </button>
+        <button class="nav-btn" id="btnTabSenha">
+          <i class="fa-solid fa-lock"></i>
+          Alterar Senha
+        </button>
+        <button class="nav-btn" id="btnTabFavoritos">
+          <i class="fa-solid fa-heart"></i>
+          Favoritos
+        </button>
       </nav>
+
+      <!-- Botão Sair da Conta na barra lateral -->
+      <div class="sidebar-footer">
+        <button class="nav-btn btn-sair" id="btnSairConta">
+          <i class="fa-solid fa-right-from-bracket"></i>
+          Sair da Conta
+        </button>
+      </div>
     </aside>
 
     <main class="main-content">
@@ -39,7 +55,8 @@
         </button>
       </header>
 
-      <section class="profile-card">
+      <!-- SEÇÃO DE CONFIGURAÇÕES  -->
+      <section class="profile-card" id="secaoPerfil">
         <h2>Meus Dados</h2>
         <p class="subtitle">Mantenha seu perfil sempre atualizado.</p>
         
@@ -67,6 +84,47 @@
             Atualizar Dados do Perfil
           </button>
         </form>
+      </section>
+
+      <!-- ALTERAR SENHA -->
+      <section class="profile-card hidden" id="secaoSenha">
+        <h2>Alterar Senha</h2>
+        <p class="subtitle">Escolha uma nova senha segura para sua conta.</p>
+        
+        <hr class="divider-card">
+
+        <form id="formSenha" class="profile-form">
+          <div class="form-group full-width">
+            <label for="senhaAtual">Senha Atual</label>
+            <input type="password" id="senhaAtual" placeholder="Digite sua senha atual" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="novaSenha">Nova Senha</label>
+            <input type="password" id="novaSenha" placeholder="Digite a nova senha (mínimo 6 caracteres)" required>
+          </div>
+
+          <div class="form-group full-width">
+            <label for="confirmaSenha">Confirmar Nova Senha</label>
+            <input type="password" id="confirmaSenha" placeholder="Confirme a nova senha" required>
+          </div>
+
+          <button type="submit" class="btn-atualizar" id="btnSalvarSenha">
+            Atualizar Senha
+          </button>
+        </form>
+      </section>
+
+      <!-- FAVORITOS -->
+      <section class="profile-card hidden" id="secaoFavoritos">
+        <h2>Meus Favoritos</h2>
+        <p class="subtitle">Comércios e serviços que você salvou do banco de dados.</p>
+        
+        <hr class="divider-card">
+
+        <div id="listaFavoritos" class="favoritos-grid">
+          <p class="sem-favoritos">A carregar favoritos...</p>
+        </div>
       </section>
 
     </main>
