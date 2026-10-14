@@ -23,12 +23,12 @@
         <label for="categoria">Categoria</label>
         <select id="categoria">
             <option value="todas">Todas</option>
-            <option value="manicure">Manicure</option>
-            <option value="beleza">Beleza</option>
+            <option value="manicure">Serviços</option>
+            <option value="beleza">Beleza e Cuidados</option>
             <option value="alimentacao">Alimentação</option>
-            <option value="costura">Costura</option>
+            <option value="costura">Moda e Costura</option>
             <option value="tatuagem">Tatuagem</option>
-            <option value="cabelo">Cabelo</option>
+            <option value="cabelo">Arte e Artesanato</option>
         </select>
 
         <label for="localizacao">Localização (Bairro)</label>
@@ -61,29 +61,34 @@
             <div class="card-resultados"  data-categoria="tatuagem">
                 <img src="imagens/logo.kelly.jpeg">
                 <span class="top-categorias">Tatuagem</span>
-                <span class="top-favoritos">☆ Destaque</span>
+                <button type="button" class="top-favoritos" aria-pressed="false">
+                    <span class="estrela">☆</span> Destaque
+                </button>
 
             
 
                 <div class="conteudo-card">
-                <div class="localizacao">
-                    <img src="icones/iconemarcador.png" style="width: 20px; height: 20px; margin-right: 5px;">
-                    <span class="bairro">Vila da Saude</span>
+                    <div class="localizacao">
+                        <img src="icones/iconemarcador.png" style="width: 20px; height: 20px; margin-right: 5px;">
+                        <span class="bairro">Vila da Saude</span>
+                    </div>
+
+                    <div class="informacoes">
+                        <h3>Kezzy Souza</h3>
+                        <p>Projeto uníco para a mulher que sabe quem é, e se permite ser</p>
+                    </div>
+
+                    <button type="button" class="ver-detalhes">Ver detalhes</button>
                 </div>
-
-                <div class="informacoes">
-                    <h3>Kezzy Souza</h3>
-                    <p>Projeto uníco para a mulher que sabe quem é, e se permite ser</p>
-                </div>
-
-                <button type="button" class="ver-detalhes">Ver detalhes</button>
-
             </div>
 
             <div class="card-resultados" data-categoria="tatuagem">
                 <img src="tatuadora.jpg">
                 <span class="top-categorias">Tatuagem</span>
-                <span class="top-favoritos">☆ Destaque</span>
+
+                <button type="button" class="top-favoritos" aria-pressed="false">
+                    <span class="estrela">☆</span> Destaque
+                </button>
 
             
 
@@ -91,6 +96,10 @@
                     <div class="localizacao">
                         <img src="marcador.png">
                         <span class="bairro">Exemplo</span>
+
+                        <button type="button" class="top-favoritos" aria-pressed="false">
+                            <span class="estrela">☆</span> Destaque
+                        </button>
                     </div>
 
                     <div class="informacoes">
@@ -109,6 +118,10 @@
     </section>
 
 </main>
+<div id="mensagem-favorito"></div>
+
+<script src="filtro.js"></script>
+</body>
 
 <script src="filtro.js"></script>
 </body>
