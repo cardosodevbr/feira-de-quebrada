@@ -171,7 +171,7 @@ if (btnSairConta) {
 // ==========================================
 // GERENCIAR STATUS DA CONTA (COM PRAZO DE 24H) E EXCLUSÃO
 // ==========================================
-let contaAtiva = true;
+let contaAtiva = false; 
 
 async function carregarStatusConta() {
   if (!usuarioAtual) return;
@@ -180,7 +180,7 @@ async function carregarStatusConta() {
     if (snapshot.exists()) {
       contaAtiva = snapshot.val().ativa;
     } else {
-      contaAtiva = true;
+      contaAtiva = false;
     }
   } catch (err) {
     const salvo = localStorage.getItem(getChaveUsuario('statusConta'));
@@ -199,7 +199,7 @@ function atualizarUIStatusConta() {
       btn.innerText = "Desativar Conta (até 24h)";
       btn.className = "btn-warning";
     } else {
-      lbl.innerText = "Desativação Pendente / Desativado";
+      lbl.innerText = "Desativado (Preencha os dados para ativar)";
       lbl.className = "status-desativado";
       btn.innerText = "Ativar Conta Novamente";
       btn.className = "btn-success";
@@ -572,7 +572,17 @@ if (formNegocio) {
 
     try {
       await set(ref(db, `Comercio/${usuarioAtual.uid}/dadosNegocio`), dados);
-      alert('Dados do comércio e localização salvos com sucesso!');
+      
+      if (dados.nome && dados.categoria) {
+        contaAtiva = true;
+        atualizarUIStatusConta();
+        await set(ref(db, `Comercio/${usuarioAtual.uid}/statusConta`), {
+          ativa: true,
+          atualizadoEm: new Date().toISOString()
+        });
+      }
+
+      alert('Dados do comércio salvos e conta ativada com sucesso!');
     } catch (err) {
       alert('Erro ao salvar no banco online.');
     }
@@ -644,8 +654,8 @@ if (btnUploadLogo && logoInput) {
         alert("Por favor, selecione apenas arquivos de imagem.");
         return;
       }
-      if (file.size > 10 * 1024 * 1024) {
-        alert("A imagem da logo deve ter no máximo 10MB.");
+      if (file.size > 15 * 1024 * 1024) {
+        alert("A imagem da logo deve ter no máximo 15MB.");
         return;
       }
 
@@ -719,8 +729,8 @@ if (btnEscolherFoto && fotoInput) {
         alert("Por favor, selecione apenas arquivos de imagem.");
         return;
       }
-      if (file.size > 10 * 1024 * 1024) {
-        alert("A foto da galeria deve ter no máximo 10MB.");
+      if (file.size > 15 * 1024 * 1024) {
+        alert("A foto da galeria deve ter no máximo 15MB.");
         return;
       }
 

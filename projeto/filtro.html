@@ -3,162 +3,104 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Feira da Quebrada - Filtros</title>
     <link rel="stylesheet" href="filtro.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
 </head>
 <body>
     <main class="pagina-resultados">
+        <aside class="filtros">
+            <h2 class="busca">Busca Avançada</h2>
 
-    <aside class="filtros">
-
-        <h2 class="busca">Busca Avançada</h2>
-
-        <label for="busca">O que você procura?</label>
-        <input type="text" id="busca" placeholder="Nome ou palavra-chave">
-        
-
-        <label for="categoria">Categoria</label>
-        <select id="categoria">
-            <option value="todas">Todas</option>
-            <option value="manicure">Serviços</option>
-            <option value="beleza">Beleza e Cuidados</option>
-            <option value="alimentacao">Alimentação</option>
-            <option value="costura">Moda e Costura</option>
-            <option value="tatuagem">Tatuagem</option>
-            <option value="cabelo">Arte e Artesanato</option>
-        </select>
-
-        <label for="localizacao">Localização (Bairro)</label>
-        <input type="text"id="localizacao"placeholder="Ex: Centro, Itaim...">
-        
-
-        <button type="button" class="aplica-filtro">Aplicar Filtros</button>
-
-
-    </aside>
-
-    <section class="resultados">
-
-        <div class="topo-resultados">
-
-            <p>Mostrando <strong id="resultado"></strong> resultados encontrados</p>
-
-            <div class="ordenacao">
-                <label for="ordenar">Ordenar por:</label>
-
-                <select id="ordenar">
-                    <option>Mais recentes</option>
-                    <option>Mais antigos</option>
-                </select>
-            </div>
-
-        </div>
-
-        <div class="card-container">
-            <div class="card-resultados"  data-categoria="tatuagem">
-                <img src="imagens/logo.kelly.jpeg">
-                <span class="top-categorias">Tatuagem</span>
-                <button type="button" class="top-favoritos" aria-pressed="false">
-                    <span class="estrela">☆</span> Destaque
-                </button>
-
+            <label for="busca">O que você procura?</label>
+            <input type="text" id="busca" placeholder="Nome ou palavra-chave">
             
+            <label for="categoria">Categoria</label>
+            <select id="categoria">
+                <option value="todas">Todas</option>
+                <option value="manicure">Serviços</option>
+                <option value="beleza">Beleza e Cuidados</option>
+                <option value="alimentacao">Alimentação</option>
+                <option value="costura">Moda e Costura</option>
+                <option value="tatuagem">Tatuagem</option>
+                <option value="cabelo">Arte e Artesanato</option>
+                <option value="outros">Outros</option>
+            </select>
 
-                <div class="conteudo-card">
-                    <div class="localizacao">
-                        <img src="icones/iconemarcador.png" style="width: 20px; height: 20px; margin-right: 5px;">
-                        <span class="bairro">Vila da Saude</span>
-                    </div>
+            <label for="localizacao">Localização (Bairro)</label>
+            <input type="text" id="localizacao" placeholder="Ex: Centro, Itaim...">
+            
+            <button type="button" class="aplica-filtro">Aplicar Filtros</button>
+        </aside>
 
-                    <div class="informacoes">
-                        <h3>Kezzy Souza</h3>
-                        <p>Projeto uníco para a mulher que sabe quem é, e se permite ser</p>
-                    </div>
+        <section class="resultados">
+            <div class="topo-resultados">
+                <p>Mostrando <strong id="resultado">0</strong> resultados encontrados</p>
 
-                    <button type="button" class="ver-detalhes">Ver detalhes</button>
+                <div class="ordenacao">
+                    <label for="ordenar">Ordenar por:</label>
+                    <select id="ordenar">
+                        <option>Mais recentes</option>
+                        <option>Mais antigos</option>
+                    </select>
                 </div>
             </div>
 
-            <div class="card-resultados" data-categoria="tatuagem">
-                <img src="tatuadora.jpg">
-                <span class="top-categorias">Tatuagem</span>
+            <div class="card-container" id="cardContainer"></div>
+        </section>
+    </main>
 
-                <button type="button" class="top-favoritos" aria-pressed="false">
-                    <span class="estrela">☆</span> Destaque
-                </button>
+    <div id="mensagem-favorito"></div>
 
+    <!-- POP-UP -->
+    <div id="modalDetalhes" class="modal-overlay" style="display: none;">
+        <div class="modal-content-horizontal">
+            <button id="fecharModal" class="btn-fechar-modal" aria-label="Fechar">&times;</button>
             
-
-                <div class="conteudo-card">
-                    <div class="localizacao">
-                        <img src="marcador.png">
-                        <span class="bairro">Exemplo</span>
-
-                        <button type="button" class="top-favoritos" aria-pressed="false">
-                            <span class="estrela">☆</span> Destaque
-                        </button>
-                    </div>
-
-                    <div class="informacoes">
-                        <h3>Exemplo</h3>
-                        <p>Exemplo</p>
-                    </div>
-
-                    <button type="button" class="ver-detalhes">Ver detalhes</button>
-                </div>
+            <div class="modal-lado-imagem">
+                <img id="modalFoto" src="" alt="Foto Principal" class="modal-img-horizontal">
+                <div id="modalGaleria" class="modal-galeria-miniaturas" style="display: none;"></div>
             </div>
 
-            
-            
+            <div class="modal-lado-info">
+                <div>
+                    <h2 id="modalNome">Nome do Comércio</h2>
+                    <p id="modalDescricao" class="modal-desc">Descrição do comércio ou serviço oferecido.</p>
+                </div>
+                
+                <div class="modal-detalhes-lista">
+                    <p><strong>Categoria:</strong> <span id="modalCategoria"></span></p>
+                    <p><strong>Bairro:</strong> <span id="modalBairro"></span></p>
+                    <p><strong>WhatsApp:</strong> <span id="modalWhatsapp"></span></p>
+                </div>
+
+                <a id="modalBtnZap" href="#" target="_blank" class="btn-whatsapp-horizontal" style="display: none;">
+                    Conversar no WhatsApp 💬
+                </a>
+            </div>
         </div>
-
-    </section>
-
-</main>
-<div id="mensagem-favorito"></div>
-
-<script src="filtro.js"></script>
-</body>
-
-<script src="filtro.js"></script>
-
-
-<!-- ========================================== -->
-<!-- VLibras e UserWay  Acessibilidade          -->
-<!-- ========================================== -->
-
-<!-- VLibras -->
-<div vw class="enabled">
-    <div vw-access-button class="active"></div>
-    <div vw-plugin-wrapper>
-        <div class="vw-plugin-top-wrapper"></div>
     </div>
-</div>
-<script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
-<script>
-    new window.VLibras.Widget('https://vlibras.gov.br/app');
-</script>
 
-<!-- UserWay -->
-<script src="https://cdn.userway.org/widget.js" data-account="a1B2c3D4e5"></script>
+    <script type="module" src="filtro.js"></script>
 
-<!-- Aqui ajusta o CSS do UserWay para ficar em acima do VLibras -->
-<style>
-    .userway-widget-btn,
-    #userwayAccessibilityIcon,
-    body .uaw-widget-btn {
-        position: fixed !important;
-        right: -12px !important;
-        left: auto !important;
-        bottom: -230px !important; 
-        top: auto !important;
-        z-index: 999999 !important;
-    }
-    
-</style>
+    <!-- VLibras e UserWay -->
+    <div vw class="enabled">
+        <div vw-access-button class="active"></div>
+        <div vw-plugin-wrapper>
+            <div class="vw-plugin-top-wrapper"></div>
+        </div>
+    </div>
+    <script src="https://vlibras.gov.br/app/vlibras-plugin.js"></script>
+    <script>
+        new window.VLibras.Widget('https://vlibras.gov.br/app');
+    </script>
+    <script src="https://cdn.userway.org/widget.js" data-account="a1B2c3D4e5"></script>
+    <style>
+        .userway-widget-btn, #userwayAccessibilityIcon, body .uaw-widget-btn {
+            position: fixed !important; right: 20px !important; left: auto !important; bottom: 90px !important; z-index: 999999 !important;
+        }
+    </style>
 </body>
 </html>
-
